@@ -4,6 +4,7 @@ import { AppService } from "./app.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule } from "@nestjs/config";
 import Joi from "joi";
+import { EnviromentConfigModule } from "./shared/infrastructure/config/enviroment-config.module";
 
 @Module({
     imports: [
@@ -30,7 +31,8 @@ import Joi from "joi";
             extra: {
                 timezone: "UTC"
             }
-        })
+        }),
+        EnviromentConfigModule
     ],
     controllers: [AppController],
     providers: [AppService]
