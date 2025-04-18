@@ -102,18 +102,6 @@ export class UserMigrationEntity {
     identification_type_id: number;
 
     @Column({
-        type: "int",
-        nullable: false
-    })
-    reg_status_id: number;
-
-    @Column({
-        type: "int",
-        nullable: false
-    })
-    role_id: number;
-
-    @Column({
         type: "varchar",
         length: 255,
         nullable: false
