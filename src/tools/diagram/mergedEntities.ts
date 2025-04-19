@@ -1,8 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    Index,
+    CreateDateColumn,
+    UpdateDateColumn
+} from "typeorm";
 
 // From bank.orm-entity.ts
 @Entity("banks")
-export class BankMigrationEntity {
+export class BankORMEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -340,4 +347,3 @@ export class WalletMigrationEntity {
     })
     updated_at: Date;
 }
-

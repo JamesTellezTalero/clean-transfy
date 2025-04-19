@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IBankRepository } from "../../domain/repositories/bank.respository.interface";
 import { Bank } from "../../domain/entities/bank.entity";
-import { BankMigrationEntity } from "../orm/bank.orm-entity";
+import { BankORMEntity } from "../orm/bank.orm-entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { BankCreateDatabaseDto } from "../../application/dtos/bank.create-database.dto";
@@ -9,8 +9,8 @@ import { BankCreateDatabaseDto } from "../../application/dtos/bank.create-databa
 @Injectable()
 export class BankRepositoryService implements IBankRepository {
     constructor(
-        @InjectRepository(BankMigrationEntity)
-        private readonly bankRepository: Repository<BankMigrationEntity>
+        @InjectRepository(BankORMEntity)
+        private readonly bankRepository: Repository<BankORMEntity>
     ) {}
 
     async findById(id: number): Promise<Bank> {
@@ -49,7 +49,7 @@ export class BankRepositoryService implements IBankRepository {
         return;
     }
 
-    private mapToDomain(entity: BankMigrationEntity): Bank {
+    private mapToDomain(entity: BankORMEntity): Bank {
         if (!entity) return null;
         const bank = new Bank();
         bank.id = entity.id;
@@ -61,7 +61,7 @@ export class BankRepositoryService implements IBankRepository {
         return bank;
     }
 
-    private mapArrToDomain(entities: BankMigrationEntity[]): Bank[] {
+    private mapArrToDomain(entities: BankORMEntity[]): Bank[] {
         if (
             Array.isArray(entities) &&
             (entities == null || entities.length == 0)

@@ -12,7 +12,7 @@ import {
 } from "typeorm";
 
 @Entity("banks")
-export class BankMigrationEntity {
+export class BankORMEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

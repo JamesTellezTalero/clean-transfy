@@ -9,10 +9,10 @@ import { findByIdBankUseCase } from "./application/use-cases/find-by-id-bank.use
 import { findByNameBankUseCase } from "./application/use-cases/find-by-name-bank.use-case";
 import { findByCodeBankUseCase } from "./application/use-cases/find-by-code-bank.use-case";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { BankMigrationEntity } from "./infrastructure/orm/bank.orm-entity";
+import { BankORMEntity } from "./infrastructure/orm/bank.orm-entity";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([BankMigrationEntity])],
+    imports: [TypeOrmModule.forFeature([BankORMEntity])],
     controllers: [BankController],
     providers: [
         {

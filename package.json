@@ -22,7 +22,7 @@
         "migration:create": "typeorm migration:create",
         "migration:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/shared/infrastructure/config/data-source.ts",
         "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/shared/infrastructure/config/data-source.ts",
-        "seed": "ts-node src/database/seeds/seed.ts",
+        "seed": "ts-node src/shared/infrastructure/typeorm/seeds/seed.ts",
         "diagram": "ts-node src/tools/diagram/gen-entities-for-diagram.ts"
     },
     "dependencies": {
