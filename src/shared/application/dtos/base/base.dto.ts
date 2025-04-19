@@ -8,11 +8,9 @@ import {
     ValidationError
 } from "class-validator";
 import { Expose, Type, plainToInstance } from "class-transformer";
-import { HttpStatus } from "@nestjs/common";
-import * as sqlstring from "sqlstring"; // Librería para sanitización SQL
-import { ApiResponseDto } from "../api-responses/api-response.dto";
-import { mapperErrorsUtils } from "../../../utils/mapper-errors.utils";
+import * as sqlstring from "sqlstring"; // Librería para san
 import { BadRequestResponse } from "../api-responses/errors/bad-request-error-response.dto";
+import { mapperErrorsUtils } from "../../utils/mapper-errors.utils";
 
 // Clase base genérica
 export class BaseDto<T> {

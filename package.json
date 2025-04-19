@@ -32,12 +32,14 @@
         "@nestjs/platform-express": "^10.0.0",
         "@nestjs/typeorm": "^11.0.0",
         "argon2": "^0.41.1",
+        "class-transformer": "^0.5.1",
         "class-validator": "^0.14.1",
         "clean-transfy": "file:",
         "joi": "^17.13.3",
         "pg": "^8.14.1",
         "reflect-metadata": "^0.2.0",
         "rxjs": "^7.8.1",
+        "sqlstring": "^2.3.3",
         "typeorm": "^0.3.22"
     },
     "devDependencies": {

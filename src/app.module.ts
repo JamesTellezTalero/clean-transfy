@@ -5,6 +5,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule } from "@nestjs/config";
 import Joi from "joi";
 import { EnviromentConfigModule } from "./shared/infrastructure/config/enviroment-config.module";
+import { BankModule } from "./modules/banks/bank.module";
 
 @Module({
     imports: [
@@ -23,7 +24,7 @@ import { EnviromentConfigModule } from "./shared/infrastructure/config/enviromen
         TypeOrmModule.forRoot({
             type: "postgres",
             url: process.env.DATABASE_URL,
-            entities: [__dirname + "/**/*.entity{.ts,.js}"],
+            entities: [__dirname + "/**/*.orm-entity{.ts,.js}"],
             synchronize: false,
             migrationsRun: false,
             logging: false,
@@ -32,7 +33,8 @@ import { EnviromentConfigModule } from "./shared/infrastructure/config/enviromen
                 timezone: "UTC"
             }
         }),
-        EnviromentConfigModule
+        EnviromentConfigModule,
+        BankModule
     ],
     controllers: [AppController],
     providers: [AppService]
