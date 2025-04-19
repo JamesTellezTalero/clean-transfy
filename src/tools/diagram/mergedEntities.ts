@@ -52,7 +52,7 @@ export class BankORMEntity {
 
 // From identification_type.orm-entity.ts
 @Entity("identification_types")
-export class IdentificationTypeMigrationEntity {
+export class IdentificationTypeORMEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

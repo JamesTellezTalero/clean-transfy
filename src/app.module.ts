@@ -8,6 +8,7 @@ import { EnviromentConfigModule } from "./shared/infrastructure/config/enviromen
 import { BankModule } from "./modules/banks/bank.module";
 import { APP_FILTER } from "@nestjs/core";
 import { AllExceptionsFilter } from "./shared/infrastructure/filters/http-exception.filter";
+import { IdentificationTypeModule } from './modules/identification_types/identification_type.module';
 
 @Module({
     imports: [
@@ -36,7 +37,8 @@ import { AllExceptionsFilter } from "./shared/infrastructure/filters/http-except
             }
         }),
         EnviromentConfigModule,
-        BankModule
+        BankModule,
+        IdentificationTypeModule
     ],
     controllers: [AppController],
     providers: [

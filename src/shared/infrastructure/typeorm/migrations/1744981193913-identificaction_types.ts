@@ -4,8 +4,9 @@ export class IdentificactionTypes1744981193913 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             CREATE TABLE identification_types (
-                id INT PRIMARY KEY,
+                id SERIAL PRIMARY KEY,
                 name VARCHAR(55) NOT NULL UNIQUE,
+                code VARCHAR(5) NOT NULL UNIQUE,
                 created_at TIMESTAMP DEFAULT NOW(),
                 updated_at TIMESTAMP DEFAULT NOW()
             );

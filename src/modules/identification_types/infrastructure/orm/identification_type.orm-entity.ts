@@ -9,13 +9,13 @@ import {
 } from "typeorm";
 
 @Entity("identification_types")
-export class IdentificationTypeMigrationEntity {
+export class IdentificationTypeORMEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({
         type: "varchar",
-        length: 15,
+        length: 55,
         nullable: false
     })
     @Index({ unique: true })
@@ -23,7 +23,7 @@ export class IdentificationTypeMigrationEntity {
 
     @Column({
         type: "varchar",
-        length: 10,
+        length: 5,
         nullable: false
     })
     @Index({ unique: true })
