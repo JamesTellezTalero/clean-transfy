@@ -6,6 +6,8 @@ import { ConfigModule } from "@nestjs/config";
 import Joi from "joi";
 import { EnviromentConfigModule } from "./shared/infrastructure/config/enviroment-config.module";
 import { BankModule } from "./modules/banks/bank.module";
+import { APP_FILTER } from "@nestjs/core";
+import { AllExceptionsFilter } from "./shared/infrastructure/filters/http-exception.filter";
 
 @Module({
     imports: [
@@ -37,6 +39,12 @@ import { BankModule } from "./modules/banks/bank.module";
         BankModule
     ],
     controllers: [AppController],
-    providers: [AppService]
+    providers: [
+        AppService,
+        {
+            provide: APP_FILTER,
+            useClass: AllExceptionsFilter
+        }
+    ]
 })
 export class AppModule {}

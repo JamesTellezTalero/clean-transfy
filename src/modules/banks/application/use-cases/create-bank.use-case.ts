@@ -15,10 +15,16 @@ export class createBankUseCase
     ) {}
 
     async execute(createDto: BankCreateDatabaseDto): Promise<Bank> {
-        const preExistBank = await this.bankRepository.findByName(
+        const preExistBankName = await this.bankRepository.findByName(
             createDto.name
         );
-        if (preExistBank) throw new ConflictResponse("Sent Bank already exist");
+        const preExistBankCode = await this.bankRepository.findByCode(
+            createDto.code
+        );
+        if (preExistBankName)
+            throw new ConflictResponse("Sent Bank name already exist");
+        else if (preExistBankCode)
+            throw new ConflictResponse("Sent Bank code already exist");
         else return this.bankRepository.create(createDto);
     }
 }
