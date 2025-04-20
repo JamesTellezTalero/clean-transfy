@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import { IUserRepository } from "../../domain/repositories/user.respository.interface";
 import { User } from "../../domain/entities/user.entity";
 import { UserCreateDatabaseDto } from "../../application/dtos/user.create-database.dto";
+import { UserUpdateDatabaseDto } from "../../application/dtos/user.update-database.dto";
 
 @Injectable()
 export class UserRepositoryService implements IUserRepository {
@@ -56,6 +57,16 @@ export class UserRepositoryService implements IUserRepository {
         const entity = this.userRepository.create(data);
         const newEntity = await this.userRepository.save(entity);
         return this.mapToDomain(newEntity);
+    }
+
+    async update(id: number, data: UserUpdateDatabaseDto): Promise<User> {
+        await this.userRepository.update(id, data);
+        return await this.findById(id);
+    }
+
+    async delete(id: number): Promise<void> {
+        await this.userRepository.delete(id);
+        return;
     }
 
     private mapToDomain(entity: UserORMEntity): User {

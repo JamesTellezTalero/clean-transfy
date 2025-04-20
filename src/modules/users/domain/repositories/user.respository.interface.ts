@@ -1,3 +1,5 @@
+import { UserCreateDatabaseDto } from "../../application/dtos/user.create-database.dto";
+import { UserUpdateDatabaseDto } from "../../application/dtos/user.update-database.dto";
 import { User } from "../entities/user.entity";
 
 export interface IUserRepository {
@@ -10,8 +12,6 @@ export interface IUserRepository {
         identificationTypeId: number
     ): Promise<User>;
     findAll(): Promise<User[]>;
-    login(data: UserLoginDatabaseDto): Promise<User>;
-    changePassword(data: UserChangePasswordDatabaseDto): Promise<User>;
     create(data: UserCreateDatabaseDto): Promise<User>;
     update(id: number, data: UserUpdateDatabaseDto): Promise<User>;
     delete(id: number): Promise<void>;
