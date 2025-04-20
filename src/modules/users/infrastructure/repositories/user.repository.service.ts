@@ -31,19 +31,19 @@ export class UserRepositoryService implements IUserRepository {
 
     async findByUsername(username: string): Promise<User> {
         const entity = await this.userRepository.findOne({
-            where: { username }
+            where: { username, status: true }
         });
         return this.mapToDomain(entity);
     }
 
     async findByEmail(email: string): Promise<User> {
         const entity = await this.userRepository.findOne({
-            where: { email }
+            where: { email, status: true }
         });
         return this.mapToDomain(entity);
     }
 
-    async findByIdentificationAndIdentificationType(
+    async findByIdentificationNumberAndIdentificationTypeId(
         identification_number: string,
         identification_type_id: number
     ): Promise<User> {
