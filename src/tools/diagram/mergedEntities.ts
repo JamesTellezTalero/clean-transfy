@@ -170,7 +170,7 @@ export class TransferMigrationEntity {
     "identification_number",
     "identification_type_id"
 ])
-export class UserMigrationEntity {
+export class UserORMEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
