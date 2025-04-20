@@ -10,13 +10,12 @@ import { JwtAdapter } from "./jwt.service";
             signOptions: { expiresIn: "1h" }
         })
     ],
-    providers: [JwtAdapter],
-    exports: [
-        JwtAdapter,
+    providers: [
         {
             provide: "IAuthService",
             useClass: JwtAdapter
         }
-    ]
+    ],
+    exports: ["IAuthService"]
 })
 export class AuthModule {}

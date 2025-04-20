@@ -8,7 +8,7 @@ export class findByIdentificationNumberAndIdentificationTypeIdUserUseCase
     implements
         IUseCase<
             {
-                document: string;
+                identification_number: string;
                 identification_type_id: number;
             },
             User
@@ -20,11 +20,11 @@ export class findByIdentificationNumberAndIdentificationTypeIdUserUseCase
     ) {}
 
     async execute(findData: {
-        document: string;
+        identification_number: string;
         identification_type_id: number;
     }): Promise<User> {
         return this.userRepository.findByIdentificationNumberAndIdentificationTypeId(
-            findData.document,
+            findData.identification_number,
             findData.identification_type_id
         );
     }

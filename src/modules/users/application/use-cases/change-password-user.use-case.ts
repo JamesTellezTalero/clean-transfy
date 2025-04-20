@@ -33,9 +33,12 @@ export class changePasswordUserUseCase
         if (!preExistUser)
             throw new NotFoundResponse("Sent User doesn't exist");
 
+        const UserPasswordPrevExist =
+            await this.userRepository.findPasswordByUuid(updateBody.uuid);
+
         const isValidPassword = await HashUtils.comparePasswords(
             updateBody.updateDto.old_password,
-            preExistUser.password
+            UserPasswordPrevExist
         );
 
         if (!isValidPassword)

@@ -29,9 +29,12 @@ export class loginUserUseCase
         if (!UserPrevExist)
             throw new NotFoundResponse("Sent Username or Email not found");
 
+        const UserPasswordPrevExist =
+            await this.userRepository.findPasswordByUuid(UserPrevExist.uuid);
+
         const isValidPassword = await HashUtils.comparePasswords(
             loginDto.password,
-            UserPrevExist.password
+            UserPasswordPrevExist
         );
 
         if (!isValidPassword)

@@ -28,7 +28,6 @@ export class StringUtils {
             );
             randomString += possibleChars[randomIndex];
         }
-        console.log("PASSWORD RESET: ", randomString);
         return randomString;
     }
 }

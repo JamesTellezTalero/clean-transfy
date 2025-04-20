@@ -29,6 +29,14 @@ export class UserRepositoryService implements IUserRepository {
         return this.mapToDomain(entity);
     }
 
+    async findPasswordByUuid(uuid: string): Promise<string> {
+        const entity = await this.userRepository.findOne({
+            where: { uuid },
+            select: { password: true }
+        });
+        return entity.password;
+    }
+
     async findByUsername(username: string): Promise<User> {
         const entity = await this.userRepository.findOne({
             where: { username, status: true }
