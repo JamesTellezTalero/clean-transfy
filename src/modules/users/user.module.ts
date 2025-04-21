@@ -37,6 +37,7 @@ import { AuthModule } from "src/shared/infrastructure/auth/auth.module";
         changePasswordUserUseCase,
         resetPasswordUserUseCase,
         updateUserUseCase
-    ]
+    ],
+    exports: ["IUserRepository"]
 })
 export class UserModule {}

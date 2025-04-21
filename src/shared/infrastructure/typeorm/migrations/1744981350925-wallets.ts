@@ -8,7 +8,7 @@ export class Wallets1744981350925 implements MigrationInterface {
                 "uuid" UUID NOT NULL DEFAULT uuid_generate_v4() UNIQUE,
                 user_id INT NOT NULL,
                 bank_id INT NOT NULL,
-                balance BIGINT NOT NULL,
+                balance BIGINT DEFAULT 0,
                 status BOOLEAN DEFAULT true,
                 created_at TIMESTAMP DEFAULT NOW(),
                 updated_at TIMESTAMP DEFAULT NOW()

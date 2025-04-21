@@ -11,6 +11,7 @@ import { AllExceptionsFilter } from "./shared/infrastructure/filters/http-except
 import { IdentificationTypeModule } from "./modules/identification_types/identification_type.module";
 import { UserModule } from "./modules/users/user.module";
 import { AuthModule } from "./shared/infrastructure/auth/auth.module";
+import { WalletModule } from './modules/wallets/wallet.module';
 
 @Module({
     imports: [
@@ -42,7 +43,8 @@ import { AuthModule } from "./shared/infrastructure/auth/auth.module";
         BankModule,
         IdentificationTypeModule,
         UserModule,
-        AuthModule
+        AuthModule,
+        WalletModule
     ],
     controllers: [AppController],
     providers: [

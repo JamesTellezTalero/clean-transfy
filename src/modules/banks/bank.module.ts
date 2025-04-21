@@ -26,6 +26,7 @@ import { BankORMEntity } from "./infrastructure/orm/bank.orm-entity";
         findByIdBankUseCase,
         findByNameBankUseCase,
         findByCodeBankUseCase
-    ]
+    ],
+    exports: ["IBankRepository"]
 })
 export class BankModule {}

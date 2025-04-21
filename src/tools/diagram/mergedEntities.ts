@@ -296,7 +296,7 @@ export class UserORMEntity {
 
 // From wallet.orm-entity.ts
 @Entity("wallets")
-export class WalletMigrationEntity {
+export class WalletORMEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
