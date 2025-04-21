@@ -12,6 +12,7 @@ import { IdentificationTypeModule } from "./modules/identification_types/identif
 import { UserModule } from "./modules/users/user.module";
 import { AuthModule } from "./shared/infrastructure/auth/auth.module";
 import { WalletModule } from './modules/wallets/wallet.module';
+import { TopUpModule } from './modules/top_ups/top_up.module';
 
 @Module({
     imports: [
@@ -44,7 +45,8 @@ import { WalletModule } from './modules/wallets/wallet.module';
         IdentificationTypeModule,
         UserModule,
         AuthModule,
-        WalletModule
+        WalletModule,
+        TopUpModule
     ],
     controllers: [AppController],
     providers: [

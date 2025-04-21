@@ -34,6 +34,7 @@ import { UserModule } from "../users/user.module";
         findByUuidWalletUseCase,
         findByUserIdWalletUseCase,
         findByBankIdWalletUseCase
-    ]
+    ],
+    exports: ["IWalletRepository"]
 })
 export class WalletModule {}

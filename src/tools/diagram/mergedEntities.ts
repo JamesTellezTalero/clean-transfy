@@ -87,7 +87,7 @@ export class IdentificationTypeORMEntity {
 
 // From top_ups.orm-entity.ts
 @Entity("top_ups")
-export class TopUpMigrationEntity {
+export class TopUpORMEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
