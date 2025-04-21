@@ -13,6 +13,7 @@ import { UserModule } from "./modules/users/user.module";
 import { AuthModule } from "./shared/infrastructure/auth/auth.module";
 import { WalletModule } from './modules/wallets/wallet.module';
 import { TopUpModule } from './modules/top_ups/top_up.module';
+import { TransferModule } from './modules/transfers/transfer.module';
 
 @Module({
     imports: [
@@ -46,7 +47,8 @@ import { TopUpModule } from './modules/top_ups/top_up.module';
         UserModule,
         AuthModule,
         WalletModule,
-        TopUpModule
+        TopUpModule,
+        TransferModule
     ],
     controllers: [AppController],
     providers: [

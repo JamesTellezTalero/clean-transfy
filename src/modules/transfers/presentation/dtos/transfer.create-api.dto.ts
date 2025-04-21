@@ -8,13 +8,20 @@ import {
 } from "class-validator";
 import { BaseDto } from "src/shared/application/dtos/base/base.dto";
 
-export class TopUpCreateAPIRequestDto extends BaseDto<TopUpCreateAPIRequestDto> {
+export class TransferCreateAPIRequestDto extends BaseDto<TransferCreateAPIRequestDto> {
     @IsNumber()
     @IsPositive()
+    @IsNotEmpty()
     @Expose()
-    wallet_id: number;
+    source_wallet_id: number;
     @IsNumber()
     @IsPositive()
+    @IsNotEmpty()
+    @Expose()
+    target_wallet_id: number;
+    @IsNumber()
+    @IsPositive()
+    @IsNotEmpty()
     @Type(() => Number)
     @Expose()
     amount: number;

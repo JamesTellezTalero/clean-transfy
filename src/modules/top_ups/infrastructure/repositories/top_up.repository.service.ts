@@ -4,6 +4,7 @@ import { TopUpORMEntity } from "../orm/top_up.orm-entity";
 import { Repository } from "typeorm";
 import { ITopUpRepository } from "../../domain/repositories/top_up.respository.interface";
 import { TopUp } from "../../domain/entities/top_up.entity";
+import { TopUpCreateDatabaseDto } from "../../application/dtos/top_up.create-database.dto";
 
 @Injectable()
 export class TopUpRepositoryService implements ITopUpRepository {
@@ -31,7 +32,7 @@ export class TopUpRepositoryService implements ITopUpRepository {
         return this.mapArrToDomain(entities);
     }
 
-    async create(data: TopUp): Promise<TopUp> {
+    async create(data: TopUpCreateDatabaseDto): Promise<TopUp> {
         const entity = this.topUpRepository.create(data);
         const newEntity = await this.topUpRepository.save(entity);
         return this.mapToDomain(newEntity);

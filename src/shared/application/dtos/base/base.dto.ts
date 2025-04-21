@@ -40,9 +40,9 @@ export class BaseDto<T> {
     // Método genérico para transformar un objeto plano en una instancia del DTO
     static async FromPlain<T>(this: new () => T, body: any): Promise<T> {
         const dto = plainToInstance(this, body || {}, {
-            excludeExtraneousValues: true
+            excludeExtraneousValues: true,
+            enableImplicitConversion: true
         });
-
         await (dto as any).validate();
         return dto;
     }

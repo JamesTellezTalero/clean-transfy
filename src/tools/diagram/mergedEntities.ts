@@ -119,7 +119,7 @@ export class TopUpORMEntity {
 
 // From transfer.orm-entity.ts
 @Entity("transfers")
-export class TransferMigrationEntity {
+export class TransferORMEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

@@ -28,7 +28,7 @@ export class createTopUpUseCase
 
         const newTopUp = await this.topUpRepository.create(createDto);
 
-        wallet.balance += createDto.amount;
+        wallet.balance = Number(wallet.balance) + Number(createDto.amount);
         wallet.updated_at = new Date();
         await this.walletRepository.update(wallet.id, wallet);
 
