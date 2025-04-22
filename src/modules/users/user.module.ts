@@ -15,7 +15,7 @@ import { resetPasswordUserUseCase } from "./application/use-cases/reset-password
 import { updateUserUseCase } from "./application/use-cases/update-user.use-case";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserORMEntity } from "./infrastructure/orm/user.orm-entity";
-import { AuthModule } from "src/shared/infrastructure/auth/auth.module";
+import { AuthModule } from "src/modules/auth/auth.module";
 
 @Module({
     imports: [TypeOrmModule.forFeature([UserORMEntity]), AuthModule],

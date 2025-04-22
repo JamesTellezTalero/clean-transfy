@@ -5,11 +5,13 @@ import {
     HttpException,
     HttpStatus,
     Request,
-    NotFoundException
+    NotFoundException,
+    BadRequestException
 } from "@nestjs/common";
 import { ApiResponseDto } from "../../application/dtos/api-responses/api-response.dto";
 import { InternalServerErrorResponse } from "src/shared/application/dtos/api-responses/errors/internal-server-error-response.dto";
 import { NotFoundResponse } from "src/shared/application/dtos/api-responses/errors/not-found-error-response.dto";
+import { BadRequestResponse } from "src/shared/application/dtos/api-responses/errors/bad-request-error-response.dto";
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -35,6 +37,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
         if (exception instanceof ApiResponseDto)
             response.status(exception.status).json(exception);
+        else if (exception instanceof BadRequestException)
+            response
+                .status(exception?.getStatus())
+                .json(new BadRequestResponse(exception?.message, null));
         else if (exception instanceof NotFoundException)
             response
                 .status(exception?.getStatus())

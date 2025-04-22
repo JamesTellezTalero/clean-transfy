@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { ApiResponseDto } from "src/shared/application/dtos/api-responses/api-response.dto";
 import { SuccessResponse } from "src/shared/application/dtos/api-responses/success-response.dto";
 import { TopUpCreateAPIRequestDto } from "../dtos/top_up.create-api.dto";
@@ -6,6 +6,7 @@ import { createTopUpUseCase } from "../../application/use-cases/create-top_up.us
 import { findByAllTopUpUseCase } from "../../application/use-cases/find-by-all-top_up.use-case";
 import { findByIdTopUpUseCase } from "../../application/use-cases/find-by-id-top_up.use-case";
 import { findByWalletIdTopUpUseCase } from "../../application/use-cases/find-by-wallet-id-top_up.use-case";
+import { AuthGuard } from "src/modules/auth/infrastructure/guards/auth.guard";
 
 @Controller("top-up")
 export class TopUpController {
@@ -16,6 +17,7 @@ export class TopUpController {
         private readonly findByWalletIdTopUpUseCase: findByWalletIdTopUpUseCase
     ) {}
 
+    @UseGuards(AuthGuard)
     @Post("/")
     async createTopUp(
         @Body()

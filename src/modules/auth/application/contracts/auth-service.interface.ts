@@ -1,4 +1,4 @@
-import { AuthPayloadDto } from "../dtos/auth/auth-payload.dto";
+import { AuthPayloadDto } from "../dtos/auth-payload.dto";
 
 export interface IAuthService {
     generateToken(payload: AuthPayloadDto): string;

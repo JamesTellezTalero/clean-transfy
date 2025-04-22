@@ -8,9 +8,14 @@ import { createTopUpUseCase } from "./application/use-cases/create-top_up.use-ca
 import { findByAllTopUpUseCase } from "./application/use-cases/find-by-all-top_up.use-case";
 import { findByIdTopUpUseCase } from "./application/use-cases/find-by-id-top_up.use-case";
 import { findByWalletIdTopUpUseCase } from "./application/use-cases/find-by-wallet-id-top_up.use-case";
+import { UserModule } from "../users/user.module";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([TopUpORMEntity]), WalletModule],
+    imports: [
+        TypeOrmModule.forFeature([TopUpORMEntity]),
+        WalletModule,
+        UserModule
+    ],
     controllers: [TopUpController],
     providers: [
         {

@@ -9,9 +9,14 @@ import { findByIdTransferUseCase } from "./application/use-cases/find-by-id-tran
 import { findBySourceWalletIdTransferUseCase } from "./application/use-cases/find-by-source-wallet-id-transfer.use-case";
 import { findByTargetWalletIdTransferUseCase } from "./application/use-cases/find-by-target-wallet-id-transfer.use-case";
 import { WalletModule } from "../wallets/wallet.module";
+import { UserModule } from "../users/user.module";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([TransferORMEntity]), WalletModule],
+    imports: [
+        TypeOrmModule.forFeature([TransferORMEntity]),
+        WalletModule,
+        UserModule
+    ],
     controllers: [TransferController],
     providers: [
         {

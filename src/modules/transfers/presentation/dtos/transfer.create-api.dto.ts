@@ -4,21 +4,24 @@ import {
     IsNumber,
     IsPositive,
     IsString,
+    IsUUID,
     Length
 } from "class-validator";
 import { BaseDto } from "src/shared/application/dtos/base/base.dto";
 
 export class TransferCreateAPIRequestDto extends BaseDto<TransferCreateAPIRequestDto> {
-    @IsNumber()
-    @IsPositive()
+    @IsUUID()
     @IsNotEmpty()
     @Expose()
-    source_wallet_id: number;
-    @IsNumber()
-    @IsPositive()
+    user_uuid: string;
+    @IsUUID()
     @IsNotEmpty()
     @Expose()
-    target_wallet_id: number;
+    source_wallet_uuid: string;
+    @IsUUID()
+    @IsNotEmpty()
+    @Expose()
+    target_wallet_uuid: string;
     @IsNumber()
     @IsPositive()
     @IsNotEmpty()

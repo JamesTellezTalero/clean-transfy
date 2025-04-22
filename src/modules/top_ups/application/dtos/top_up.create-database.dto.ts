@@ -1,4 +1,6 @@
 export class TopUpCreateDatabaseDto {
-    wallet_id: number;
+    wallet_uuid: string;
     amount: number;
+    wallet_id?: number;
+    user_uuid?: string;
 }

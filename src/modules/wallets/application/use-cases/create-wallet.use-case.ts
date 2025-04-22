@@ -20,26 +20,28 @@ export class createWalletUseCase
         private bankRepository: IBankRepository
     ) {}
 
-    async execute(createDto: WalletCreateDatabaseDto): Promise<Wallet> {
-        const preExistuser = await this.userRepository.findById(
-            createDto.user_id
+    async execute(dto: WalletCreateDatabaseDto): Promise<Wallet> {
+        const preExistuser = await this.userRepository.findByUuid(
+            dto.user_uuid
         );
-        const preExistBank = await this.bankRepository.findById(
-            createDto.bank_id
-        );
-        const preExistWallet =
-            await this.walletRepository.findByBankIdAndUserId(
-                createDto.bank_id,
-                createDto.user_id
-            );
+        const preExistBank = await this.bankRepository.findById(dto.bank_id);
         if (!preExistuser)
             throw new ConflictResponse("Sent User doesn't exist");
         else if (!preExistBank)
             throw new ConflictResponse("Sent Bank doesn't exist");
-        else if (preExistWallet)
+
+        const preExistWallet =
+            await this.walletRepository.findByBankIdAndUserId(
+                dto.bank_id,
+                preExistuser?.id
+            );
+
+        dto.user_id = preExistuser.id;
+
+        if (preExistWallet)
             throw new ConflictResponse(
                 "Sent User already has this Bank Wallet"
             );
-        else return this.walletRepository.create(createDto);
+        else return this.walletRepository.create(dto);
     }
 }

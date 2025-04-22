@@ -4,15 +4,20 @@ import {
     IsNumber,
     IsPositive,
     IsString,
+    IsUUID,
     Length
 } from "class-validator";
 import { BaseDto } from "src/shared/application/dtos/base/base.dto";
 
 export class TopUpCreateAPIRequestDto extends BaseDto<TopUpCreateAPIRequestDto> {
-    @IsNumber()
-    @IsPositive()
+    @IsUUID()
+    @IsNotEmpty()
     @Expose()
-    wallet_id: number;
+    wallet_uuid: string;
+    @IsUUID()
+    @IsNotEmpty()
+    @Expose()
+    user_uuid: string;
     @IsNumber()
     @IsPositive()
     @Type(() => Number)

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { ApiResponseDto } from "src/shared/application/dtos/api-responses/api-response.dto";
 import { SuccessResponse } from "src/shared/application/dtos/api-responses/success-response.dto";
 import { TransferCreateAPIRequestDto } from "../dtos/transfer.create-api.dto";
@@ -7,6 +7,7 @@ import { findByAllTransferUseCase } from "../../application/use-cases/find-by-al
 import { findByIdTransferUseCase } from "../../application/use-cases/find-by-id-transfer.use-case";
 import { findBySourceWalletIdTransferUseCase } from "../../application/use-cases/find-by-source-wallet-id-transfer.use-case";
 import { findByTargetWalletIdTransferUseCase } from "../../application/use-cases/find-by-target-wallet-id-transfer.use-case";
+import { AuthGuard } from "src/modules/auth/infrastructure/guards/auth.guard";
 
 @Controller("transfer")
 export class TransferController {
@@ -18,6 +19,7 @@ export class TransferController {
         private readonly findByTargetWalletIdTransferUseCase: findByTargetWalletIdTransferUseCase
     ) {}
 
+    @UseGuards(AuthGuard)
     @Post("/")
     async createTransfer(
         @Body()

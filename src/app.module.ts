@@ -10,10 +10,10 @@ import { APP_FILTER } from "@nestjs/core";
 import { AllExceptionsFilter } from "./shared/infrastructure/filters/http-exception.filter";
 import { IdentificationTypeModule } from "./modules/identification_types/identification_type.module";
 import { UserModule } from "./modules/users/user.module";
-import { AuthModule } from "./shared/infrastructure/auth/auth.module";
-import { WalletModule } from './modules/wallets/wallet.module';
-import { TopUpModule } from './modules/top_ups/top_up.module';
-import { TransferModule } from './modules/transfers/transfer.module';
+import { AuthModule } from "./modules/auth/auth.module";
+import { WalletModule } from "./modules/wallets/wallet.module";
+import { TopUpModule } from "./modules/top_ups/top_up.module";
+import { TransferModule } from "./modules/transfers/transfer.module";
 
 @Module({
     imports: [

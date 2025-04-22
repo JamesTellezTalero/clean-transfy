@@ -1,6 +1,7 @@
 import { Global, Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
-import { JwtAdapter } from "./jwt.service";
+import { JwtAdapter } from "./infrastructure/services/jwt.service";
+import { AuthGuard } from "./infrastructure/guards/auth.guard";
 
 @Global()
 @Module({
@@ -14,8 +15,9 @@ import { JwtAdapter } from "./jwt.service";
         {
             provide: "IAuthService",
             useClass: JwtAdapter
-        }
+        },
+        AuthGuard
     ],
-    exports: ["IAuthService"]
+    exports: ["IAuthService", AuthGuard]
 })
 export class AuthModule {}

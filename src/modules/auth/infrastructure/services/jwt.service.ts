@@ -1,7 +1,7 @@
 import { Global, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { IAuthService } from "src/shared/application/contracts/auth-service.interface";
-import { AuthPayloadDto } from "src/shared/application/dtos/auth/auth-payload.dto";
+import { AuthPayloadDto } from "src/modules/auth/application/dtos/auth-payload.dto";
+import { IAuthService } from "../../application/contracts/auth-service.interface";
 
 @Injectable()
 export class JwtAdapter implements IAuthService {

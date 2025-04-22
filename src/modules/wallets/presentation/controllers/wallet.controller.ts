@@ -4,8 +4,11 @@ import {
     Delete,
     Get,
     Param,
+    ParseUUIDPipe,
     Post,
-    Put
+    Put,
+    Req,
+    UseGuards
 } from "@nestjs/common";
 import { ApiResponseDto } from "src/shared/application/dtos/api-responses/api-response.dto";
 import { SuccessResponse } from "src/shared/application/dtos/api-responses/success-response.dto";
@@ -19,13 +22,13 @@ import { findByUserIdWalletUseCase } from "../../application/use-cases/find-by-u
 import { findByBankIdWalletUseCase } from "../../application/use-cases/find-by-bank-id-wallet.use-case";
 import { WalletUpdateAPIRequestDto } from "../dtos/wallet.update-api.dto";
 import { WalletCreateAPIRequestDto } from "../dtos/wallet.create-api.dto";
+import { AuthGuard } from "src/modules/auth/infrastructure/guards/auth.guard";
 
 @Controller("wallet")
 export class WalletController {
     constructor(
         private readonly createWalletUseCase: createWalletUseCase,
         private readonly deleteWalletUseCase: deleteWalletUseCase,
-        private readonly updateWalletUseCase: updateWalletUseCase,
         private readonly findAllWalletUseCase: findByAllWalletUseCase,
         private readonly findByIdWalletUseCase: findByIdWalletUseCase,
         private readonly findByUuidWalletUseCase: findByUuidWalletUseCase,
@@ -33,6 +36,7 @@ export class WalletController {
         private readonly findByBankIdWalletUseCase: findByBankIdWalletUseCase
     ) {}
 
+    @UseGuards(AuthGuard)
     @Post()
     async createWallet(
         @Body()
@@ -92,11 +96,18 @@ export class WalletController {
         );
     }
 
-    @Delete(":id")
-    async removeWallet(@Param("id") id: number): Promise<ApiResponseDto> {
+    @UseGuards(AuthGuard)
+    @Delete(":uuid")
+    async removeWallet(
+        @Param("uuid", ParseUUIDPipe) uuid: string,
+        @Body("user_uuid", ParseUUIDPipe) user_uuid: string
+    ): Promise<ApiResponseDto> {
         return new SuccessResponse(
             "removeWallet",
-            await this.deleteWalletUseCase.execute(id)
+            await this.deleteWalletUseCase.execute({
+                wallet_uuid: uuid,
+                user_uuid
+            })
         );
     }
 }
