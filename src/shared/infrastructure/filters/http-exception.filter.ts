@@ -48,6 +48,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
         else
             response
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerErrorResponse(""));
+                .json(new InternalServerErrorResponse("Internal Error"));
     }
 }
