@@ -13,8 +13,8 @@ export class ApiResponseDto<Item, Error> {
     protected constructor(
         status: number,
         message: string,
-        item?: any,
-        errors?: any
+        item?: Item,
+        errors?: Error
     ) {
         this.status = status;
         this.message =
