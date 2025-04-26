@@ -6,10 +6,11 @@ import { IUserRepository } from "../../domain/repositories/user.respository.inte
 import { HashUtils } from "src/shared/infrastructure/utils/hash.utils";
 import { NotFoundResponse } from "src/shared/application/dtos/api-responses/errors/not-found-error-response.dto";
 import { IAuthService } from "src/modules/auth/application/contracts/auth-service.interface";
+import { UserLoginApiResponseDto } from "../../presentation/dtos/user.login-api-response.dto";
 
 @Injectable()
 export class loginUserUseCase
-    implements IUseCase<UserLoginDatabaseDto, { token: string; user: User }>
+    implements IUseCase<UserLoginDatabaseDto, UserLoginApiResponseDto>
 {
     constructor(
         @Inject("IUserRepository")
@@ -20,7 +21,7 @@ export class loginUserUseCase
 
     async execute(
         loginDto: UserLoginDatabaseDto
-    ): Promise<{ token: string; user: User }> {
+    ): Promise<UserLoginApiResponseDto> {
         const UserPrevExist =
             (await this.userRepository.findByUsername(
                 loginDto.username_or_email

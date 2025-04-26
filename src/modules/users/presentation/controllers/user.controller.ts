@@ -25,6 +25,8 @@ import { disableOrEnableUserUseCase } from "../../application/use-cases/disable-
 import { changePasswordUserUseCase } from "../../application/use-cases/change-password-user.use-case";
 import { resetPasswordUserUseCase } from "../../application/use-cases/reset-password-user.use-case";
 import { updateUserUseCase } from "../../application/use-cases/update-user.use-case";
+import { User } from "../../domain/entities/user.entity";
+import { UserLoginApiResponseDto } from "../dtos/user.login-api-response.dto";
 
 @Controller("user")
 export class UserController {
@@ -44,7 +46,7 @@ export class UserController {
     ) {}
 
     @Get()
-    async findAllUser(): Promise<ApiResponseDto> {
+    async findAllUser(): Promise<ApiResponseDto<User[], void>> {
         return new SuccessResponse(
             "findAllUser",
             await this.findAllUserUseCase.execute()
@@ -52,7 +54,9 @@ export class UserController {
     }
 
     @Get(":id")
-    async findByIdUser(@Param("id") id: number): Promise<ApiResponseDto> {
+    async findByIdUser(
+        @Param("id") id: number
+    ): Promise<ApiResponseDto<User, void>> {
         return new SuccessResponse(
             "findByIdUser",
             await this.findByIdUserUseCase.execute(id)
@@ -62,7 +66,7 @@ export class UserController {
     @Get("email/:email")
     async findByEmailUser(
         @Param("email") email: string
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<User, void>> {
         return new SuccessResponse(
             "findByEmailUser",
             await this.findByEmailUserUseCase.execute(email)
@@ -72,7 +76,7 @@ export class UserController {
     @Get("username/:username")
     async findByUsernameUser(
         @Param("username") username: string
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<User, void>> {
         return new SuccessResponse(
             "findByUsernameUser",
             await this.findByUsernameUserUseCase.execute(username)
@@ -85,7 +89,7 @@ export class UserController {
     async findByIdentificationNumberAndIdentificationTypeIdUser(
         @Param("identification_number") identification_number: string,
         @Param("identification_type_id") identification_type_id: number
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<User, void>> {
         return new SuccessResponse(
             "findByDocumentAndIdentificationTypeIdUser",
             await this.findByIdentificationNumberAndIdentificationTypeIdUserUseCase.execute(
@@ -100,7 +104,7 @@ export class UserController {
     @Post("/")
     async createUser(
         @Body() createUserDto: UserCreateApiDto
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<User, void>> {
         createUserDto = await UserCreateApiDto.FromPlain(createUserDto);
         return new SuccessResponse(
             "createUser",
@@ -111,7 +115,7 @@ export class UserController {
     @Post("/login")
     async loginUser(
         @Body() loginUserDto: UserLoginApiDto
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<UserLoginApiResponseDto, void>> {
         loginUserDto = await UserLoginApiDto.FromPlain(loginUserDto);
         return new SuccessResponse(
             "loginUser",
@@ -123,7 +127,7 @@ export class UserController {
     async updateUser(
         @Param("id") id: number,
         @Body() updateUserDto: UserUpdateApiDto
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<User, void>> {
         updateUserDto = await UserUpdateApiDto.FromPlain(updateUserDto);
         return new SuccessResponse(
             "updateUser",
@@ -137,7 +141,7 @@ export class UserController {
     @Put("reset-password/:uuid")
     async resetPasswordUser(
         @Param("uuid") uuid: string
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<void, void>> {
         return new SuccessResponse(
             "resetPasswordUser",
             await this.resetPasswordUserUseCase.execute(uuid)
@@ -148,7 +152,7 @@ export class UserController {
     async changePasswordUser(
         @Param("uuid") uuid: string,
         @Body() changePasswordUserDto: UserChangePasswordApiDto
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<User, void>> {
         changePasswordUserDto = await UserChangePasswordApiDto.FromPlain(
             changePasswordUserDto
         );
@@ -164,7 +168,7 @@ export class UserController {
     @Put("disable-or-enable/:uuid")
     async disableOrEnableUser(
         @Param("uuid") uuid: string
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<User, void>> {
         return new SuccessResponse(
             "disableOrEnableUser",
             await this.disableOrEnableUserUseCase.execute(uuid)
@@ -172,7 +176,9 @@ export class UserController {
     }
 
     @Delete(":id")
-    async removeUser(@Param("id") id: number): Promise<ApiResponseDto> {
+    async removeUser(
+        @Param("id") id: number
+    ): Promise<ApiResponseDto<void, void>> {
         return new SuccessResponse(
             "removeUser",
             await this.deleteUserUseCase.execute(id)

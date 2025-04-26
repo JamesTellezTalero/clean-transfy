@@ -1,8 +1,14 @@
-export class ApiResponseDto {
+import { ApiProperty } from "@nestjs/swagger";
+
+export class ApiResponseDto<Item, Error> {
+    @ApiProperty({ description: "HTTP Response Status" })
     status: number;
+    @ApiProperty({ description: "HTTP Response Message" })
     message: string;
-    item: any;
-    errors: any;
+    @ApiProperty({ description: "HTTP Response Item" })
+    item: Item;
+    @ApiProperty({ description: "HTTP Response Error" })
+    errors: Error;
 
     protected constructor(
         status: number,
@@ -19,12 +25,12 @@ export class ApiResponseDto {
         this.errors = status != 200 || errors != null ? errors : null;
     }
 
-    protected static createResponse(
+    protected static createResponse<Item, Error>(
         status: number,
         message: string,
-        item?: any,
-        errors?: any
-    ): ApiResponseDto {
+        item?: Item,
+        errors?: Error
+    ): ApiResponseDto<Item, Error> {
         return new ApiResponseDto(status, message, item, errors);
     }
 }

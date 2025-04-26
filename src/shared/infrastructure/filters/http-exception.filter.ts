@@ -44,10 +44,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
         else if (exception instanceof NotFoundException)
             response
                 .status(exception?.getStatus())
-                .json(new NotFoundResponse(exception?.message, null));
+                .json(new NotFoundResponse(exception?.message));
         else
             response
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerErrorResponse("", null));
+                .json(new InternalServerErrorResponse(""));
     }
 }

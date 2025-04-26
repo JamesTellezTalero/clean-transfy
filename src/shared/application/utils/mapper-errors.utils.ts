@@ -1,10 +1,14 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { ValidationError } from "class-validator";
 
-export type mappedErrors = {
+export class mappedErrors {
+    @ApiProperty({ description: "Field that has the error" })
     item: string;
+    @ApiProperty({ description: "Sent value" })
     previusValue: string;
+    @ApiProperty({ description: "Validation error message" })
     message: string;
-};
+}
 
 export const mapperErrorsUtils = (
     errors: ValidationError[],

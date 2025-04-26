@@ -23,6 +23,7 @@ import { findByBankIdWalletUseCase } from "../../application/use-cases/find-by-b
 import { WalletUpdateAPIRequestDto } from "../dtos/wallet.update-api.dto";
 import { WalletCreateAPIRequestDto } from "../dtos/wallet.create-api.dto";
 import { AuthGuard } from "src/modules/auth/infrastructure/guards/auth.guard";
+import { Wallet } from "../../domain/entities/wallet.entity";
 
 @Controller("wallet")
 export class WalletController {
@@ -41,7 +42,7 @@ export class WalletController {
     async createWallet(
         @Body()
         createWalletDto: WalletCreateAPIRequestDto
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<Wallet, void>> {
         createWalletDto =
             await WalletCreateAPIRequestDto.FromPlain(createWalletDto);
         return new SuccessResponse(
@@ -51,7 +52,7 @@ export class WalletController {
     }
 
     @Get()
-    async findAllWallet(): Promise<ApiResponseDto> {
+    async findAllWallet(): Promise<ApiResponseDto<Wallet[], void>> {
         return new SuccessResponse(
             "findAllWallet",
             await this.findAllWalletUseCase.execute()
@@ -59,7 +60,9 @@ export class WalletController {
     }
 
     @Get(":id")
-    async findByIdWallet(@Param("id") id: number): Promise<ApiResponseDto> {
+    async findByIdWallet(
+        @Param("id") id: number
+    ): Promise<ApiResponseDto<Wallet, void>> {
         return new SuccessResponse(
             "findByIdWallet",
             await this.findByIdWalletUseCase.execute(id)
@@ -69,7 +72,7 @@ export class WalletController {
     @Get("uuid/:uuid")
     async findByUuidWallet(
         @Param("uuid") uuid: string
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<Wallet, void>> {
         return new SuccessResponse(
             "findByUuidWallet",
             await this.findByUuidWalletUseCase.execute(uuid)
@@ -79,7 +82,7 @@ export class WalletController {
     @Get("user_id/:user_id")
     async findByUserIdWallet(
         @Param("user_id") user_id: number
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<Wallet[], void>> {
         return new SuccessResponse(
             "findByUserIdWallet",
             await this.findByUserIdWalletUseCase.execute(user_id)
@@ -89,7 +92,7 @@ export class WalletController {
     @Get("bank_id/:bank_id")
     async findByBankIdWallet(
         @Param("bank_id") bank_id: number
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<Wallet[], void>> {
         return new SuccessResponse(
             "findByBankIdWallet",
             await this.findByBankIdWalletUseCase.execute(bank_id)
@@ -101,7 +104,7 @@ export class WalletController {
     async removeWallet(
         @Param("uuid", ParseUUIDPipe) uuid: string,
         @Body("user_uuid", ParseUUIDPipe) user_uuid: string
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<void, void>> {
         return new SuccessResponse(
             "removeWallet",
             await this.deleteWalletUseCase.execute({

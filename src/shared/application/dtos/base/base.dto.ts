@@ -20,11 +20,7 @@ export class BaseDto<T> {
         const errors = await validate(this);
         if (errors.length > 0) {
             const errosMapped = mapperErrorsUtils(errors);
-            throw new BadRequestResponse(
-                "Campos Incompletos",
-                null,
-                errosMapped
-            );
+            throw new BadRequestResponse("Incomplete Fields", errosMapped);
         }
         return this;
     }
@@ -73,7 +69,7 @@ export class BaseDto<T> {
             .flatMap((v) => v);
 
         if (errors.length > 0)
-            throw new BadRequestResponse("Campos Incompletos", null, errors);
+            throw new BadRequestResponse("Incomplete Fields", errors);
 
         return validatedBodys;
     }

@@ -8,6 +8,7 @@ import { findByIdTransferUseCase } from "../../application/use-cases/find-by-id-
 import { findBySourceWalletIdTransferUseCase } from "../../application/use-cases/find-by-source-wallet-id-transfer.use-case";
 import { findByTargetWalletIdTransferUseCase } from "../../application/use-cases/find-by-target-wallet-id-transfer.use-case";
 import { AuthGuard } from "src/modules/auth/infrastructure/guards/auth.guard";
+import { Transfer } from "../../domain/entities/transfer.entity";
 
 @Controller("transfer")
 export class TransferController {
@@ -24,7 +25,7 @@ export class TransferController {
     async createTransfer(
         @Body()
         createTransferDto: TransferCreateAPIRequestDto
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<Transfer, void>> {
         createTransferDto =
             await TransferCreateAPIRequestDto.FromPlain(createTransferDto);
         return new SuccessResponse(
@@ -34,7 +35,7 @@ export class TransferController {
     }
 
     @Get("/")
-    async findAllTransfer(): Promise<ApiResponseDto> {
+    async findAllTransfer(): Promise<ApiResponseDto<Transfer[], void>> {
         return new SuccessResponse(
             "findAllTransfer",
             await this.findAllTransferUseCase.execute()
@@ -42,7 +43,9 @@ export class TransferController {
     }
 
     @Get(":id")
-    async findByIdTransfer(@Param("id") id: number): Promise<ApiResponseDto> {
+    async findByIdTransfer(
+        @Param("id") id: number
+    ): Promise<ApiResponseDto<Transfer, void>> {
         return new SuccessResponse(
             "findByIdTransfer",
             await this.findByIdTransferUseCase.execute(id)
@@ -52,7 +55,7 @@ export class TransferController {
     @Get("source_wallet_id/:source_wallet_id")
     async findBySourceWalletIdTransfer(
         @Param("source_wallet_id") source_wallet_id: number
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<Transfer[], void>> {
         return new SuccessResponse(
             "findBySourceWalletIdTransfer",
             await this.findBySourceWalletIdTransferUseCase.execute(
@@ -64,7 +67,7 @@ export class TransferController {
     @Get("target_wallet_id/:target_wallet_id")
     async findByTargetWalletIdTransfer(
         @Param("target_wallet_id") target_wallet_id: number
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<Transfer[], void>> {
         return new SuccessResponse(
             "findByTargetWalletIdTransfer",
             await this.findByTargetWalletIdTransferUseCase.execute(

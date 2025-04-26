@@ -17,6 +17,7 @@ import { updateIdentificationTypeUseCase } from "../../application/use-cases/upd
 import { findByAllIdentificationTypeUseCase } from "../../application/use-cases/find-by-all-identification_types.use-case";
 import { findByIdIdentificationTypeUseCase } from "../../application/use-cases/find-by-id-identification_types.use-case";
 import { findByNameIdentificationTypeUseCase } from "../../application/use-cases/find-by-name-identification_types.use-case";
+import { IdentificationType } from "../../domain/entities/identification_type.entity";
 
 @Controller("identification-type")
 export class IdentificationTypeController {
@@ -33,7 +34,7 @@ export class IdentificationTypeController {
     async createIdentificationType(
         @Body()
         createIdentificationTypeDto: IdentificationTypeCreateAPIRequestDto
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<IdentificationType, void>> {
         createIdentificationTypeDto =
             await IdentificationTypeCreateAPIRequestDto.FromPlain(
                 createIdentificationTypeDto
@@ -47,7 +48,9 @@ export class IdentificationTypeController {
     }
 
     @Get()
-    async findAllIdentificationType(): Promise<ApiResponseDto> {
+    async findAllIdentificationType(): Promise<
+        ApiResponseDto<IdentificationType[], void>
+    > {
         return new SuccessResponse(
             "findAllIdentificationType",
             await this.findAllIdentificationTypeUseCase.execute()
@@ -57,7 +60,7 @@ export class IdentificationTypeController {
     @Get(":id")
     async findByIdIdentificationType(
         @Param("id") id: number
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<IdentificationType, void>> {
         return new SuccessResponse(
             "findByIdIdentificationType",
             await this.findByIdIdentificationTypeUseCase.execute(id)
@@ -67,7 +70,7 @@ export class IdentificationTypeController {
     @Get("name/:name")
     async findByNameIdentificationType(
         @Param("name") name: string
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<IdentificationType, void>> {
         return new SuccessResponse(
             "findByNameIdentificationType",
             await this.findByNameIdentificationTypeUseCase.execute(name)
@@ -79,7 +82,7 @@ export class IdentificationTypeController {
         @Param("id") id: number,
         @Body()
         updateIdentificationTypeDto: IdentificationTypeUpdateAPIRequestDto
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<IdentificationType, void>> {
         updateIdentificationTypeDto =
             await IdentificationTypeUpdateAPIRequestDto.FromPlain(
                 updateIdentificationTypeDto
@@ -96,7 +99,7 @@ export class IdentificationTypeController {
     @Delete(":id")
     async removeIdentificationType(
         @Param("id") id: number
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<void, void>> {
         return new SuccessResponse(
             "removeIdentificationType",
             await this.deleteIdentificationTypeUseCase.execute(id)

@@ -7,6 +7,7 @@ import { findByAllTopUpUseCase } from "../../application/use-cases/find-by-all-t
 import { findByIdTopUpUseCase } from "../../application/use-cases/find-by-id-top_up.use-case";
 import { findByWalletIdTopUpUseCase } from "../../application/use-cases/find-by-wallet-id-top_up.use-case";
 import { AuthGuard } from "src/modules/auth/infrastructure/guards/auth.guard";
+import { TopUp } from "../../domain/entities/top_up.entity";
 
 @Controller("top-up")
 export class TopUpController {
@@ -22,7 +23,7 @@ export class TopUpController {
     async createTopUp(
         @Body()
         createTopUpDto: TopUpCreateAPIRequestDto
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<TopUp, void>> {
         createTopUpDto =
             await TopUpCreateAPIRequestDto.FromPlain(createTopUpDto);
         return new SuccessResponse(
@@ -32,7 +33,7 @@ export class TopUpController {
     }
 
     @Get("/")
-    async findAllTopUp(): Promise<ApiResponseDto> {
+    async findAllTopUp(): Promise<ApiResponseDto<TopUp[], void>> {
         return new SuccessResponse(
             "findAllTopUp",
             await this.findAllTopUpUseCase.execute()
@@ -40,7 +41,9 @@ export class TopUpController {
     }
 
     @Get(":id")
-    async findByIdTopUp(@Param("id") id: number): Promise<ApiResponseDto> {
+    async findByIdTopUp(
+        @Param("id") id: number
+    ): Promise<ApiResponseDto<TopUp, void>> {
         return new SuccessResponse(
             "findByIdTopUp",
             await this.findByIdTopUpUseCase.execute(id)
@@ -50,7 +53,7 @@ export class TopUpController {
     @Get("wallet_id/:wallet_id")
     async findByWalletIdTopUp(
         @Param("wallet_id") wallet_id: number
-    ): Promise<ApiResponseDto> {
+    ): Promise<ApiResponseDto<TopUp[], void>> {
         return new SuccessResponse(
             "findByWalletIdTopUp",
             await this.findByWalletIdTopUpUseCase.execute(wallet_id)
