@@ -23,15 +23,25 @@ import {
     ApiBody,
     ApiExtraModels,
     ApiOperation,
+    ApiParam,
     ApiResponse,
     ApiTags,
     getSchemaPath
 } from "@nestjs/swagger";
 import { Bank } from "../../domain/entities/bank.entity";
 import { mappedErrors } from "src/shared/application/utils/mapper-errors.utils";
+import { BadRequestResponse } from "src/shared/application/dtos/api-responses/errors/bad-request-error-response.dto";
+import { ConflictResponse } from "src/shared/application/dtos/api-responses/errors/conflict-error-response.dto";
 
 @ApiTags("Banks")
-@ApiExtraModels(ApiResponseDto, SuccessResponse, Bank)
+@ApiExtraModels(
+    ApiResponseDto,
+    SuccessResponse,
+    BadRequestResponse,
+    ConflictResponse,
+    mappedErrors,
+    Bank
+)
 @Controller("bank")
 export class BankController {
     constructor(
@@ -58,7 +68,60 @@ export class BankController {
                         status: { type: "number", example: 200 },
                         message: { type: "string", example: "createBank" },
                         item: { $ref: getSchemaPath(Bank) },
-                        errors: { type: "null" }
+                        errors: { nullable: true }
+                    }
+                }
+            ]
+        }
+    })
+    @ApiResponse({
+        status: 400,
+        description: "Incomplete Fields",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(BadRequestResponse) },
+                {
+                    properties: {
+                        status: { type: "number", example: 400 },
+                        message: {
+                            type: "string",
+                            example: "Incomplete Fields"
+                        },
+                        item: {
+                            type: "any",
+                            nullable: true
+                        },
+                        errors: {
+                            type: "array",
+                            items: {
+                                $ref: getSchemaPath(mappedErrors)
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    })
+    @ApiResponse({
+        status: 409,
+        description: "Bank Conflict Error",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(ConflictResponse) },
+                {
+                    properties: {
+                        status: { type: "number", example: 400 },
+                        message: {
+                            type: "string",
+
+                            examples: ["Sent Bank name already exist"]
+                        },
+                        item: {
+                            nullable: true
+                        },
+                        errors: {
+                            nullable: true
+                        }
                     }
                 }
             ]
@@ -77,7 +140,6 @@ export class BankController {
 
     @Get()
     @ApiOperation({ summary: "Find All Bank" })
-    @ApiBody({ type: BankCreateAPIRequestDto })
     @ApiResponse({
         status: 200,
         description: "Find All Bank",
@@ -92,7 +154,7 @@ export class BankController {
                             type: "array",
                             items: { $ref: getSchemaPath(Bank) }
                         },
-                        errors: { type: "null" }
+                        errors: { nullable: true }
                     }
                 }
             ]
@@ -106,6 +168,27 @@ export class BankController {
     }
 
     @Get(":id")
+    @ApiOperation({ summary: "Find By Id Bank" })
+    @ApiParam({ name: "id", type: "number" })
+    @ApiResponse({
+        status: 200,
+        description: "Find By Id Bank",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(SuccessResponse) },
+                {
+                    properties: {
+                        status: { type: "number", example: 200 },
+                        message: { type: "string", example: "findByIdBank" },
+                        item: {
+                            $ref: getSchemaPath(Bank)
+                        },
+                        errors: { nullable: true }
+                    }
+                }
+            ]
+        }
+    })
     async findByIdBank(
         @Param("id") id: number
     ): Promise<ApiResponseDto<Bank, void>> {
@@ -116,6 +199,27 @@ export class BankController {
     }
 
     @Get("name/:name")
+    @ApiOperation({ summary: "Find By Name Bank" })
+    @ApiParam({ name: "name", type: "string" })
+    @ApiResponse({
+        status: 200,
+        description: "Find By Name Bank",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(SuccessResponse) },
+                {
+                    properties: {
+                        status: { type: "number", example: 200 },
+                        message: { type: "string", example: "findByNameBank" },
+                        item: {
+                            $ref: getSchemaPath(Bank)
+                        },
+                        errors: { nullable: true }
+                    }
+                }
+            ]
+        }
+    })
     async findByNameBank(
         @Param("name") name: string
     ): Promise<ApiResponseDto<Bank, void>> {
@@ -126,6 +230,27 @@ export class BankController {
     }
 
     @Get("code/:code")
+    @ApiOperation({ summary: "Find By Code Bank" })
+    @ApiParam({ name: "code", type: "string" })
+    @ApiResponse({
+        status: 200,
+        description: "Find By Code Bank",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(SuccessResponse) },
+                {
+                    properties: {
+                        status: { type: "number", example: 200 },
+                        message: { type: "string", example: "findByCodeBank" },
+                        item: {
+                            $ref: getSchemaPath(Bank)
+                        },
+                        errors: { nullable: true }
+                    }
+                }
+            ]
+        }
+    })
     async findByCodeBank(
         @Param("code") code: string
     ): Promise<ApiResponseDto<Bank, void>> {
@@ -136,6 +261,28 @@ export class BankController {
     }
 
     @Put(":id")
+    @ApiOperation({ summary: "Update Bank" })
+    @ApiParam({ name: "id", type: "number" })
+    @ApiBody({ type: BankUpdateAPIRequestDto })
+    @ApiResponse({
+        status: 200,
+        description: "Update Bank",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(SuccessResponse) },
+                {
+                    properties: {
+                        status: { type: "number", example: 200 },
+                        message: { type: "string", example: "updateBank" },
+                        item: {
+                            $ref: getSchemaPath(Bank)
+                        },
+                        errors: { nullable: true }
+                    }
+                }
+            ]
+        }
+    })
     async updateBank(
         @Param("id") id: number,
         @Body()
@@ -152,6 +299,27 @@ export class BankController {
     }
 
     @Delete(":id")
+    @ApiOperation({ summary: "Remove Bank" })
+    @ApiParam({ name: "id", type: "number" })
+    @ApiResponse({
+        status: 200,
+        description: "Remove Bank",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(SuccessResponse) },
+                {
+                    properties: {
+                        status: { type: "number", example: 200 },
+                        message: { type: "string", example: "removeBank" },
+                        item: {
+                            nullable: true
+                        },
+                        errors: { nullable: true }
+                    }
+                }
+            ]
+        }
+    })
     async removeBank(
         @Param("id") id: number
     ): Promise<ApiResponseDto<void, void>> {
