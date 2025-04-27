@@ -110,7 +110,7 @@ export class IdentificationTypeController {
                 { $ref: getSchemaPath(ConflictResponse) },
                 {
                     properties: {
-                        status: { type: "number", example: 400 },
+                        status: { type: "number", example: 409 },
                         message: {
                             type: "string",
 

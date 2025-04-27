@@ -9,11 +9,11 @@ import { BankModule } from "./modules/banks/bank.module";
 import { APP_FILTER } from "@nestjs/core";
 import { AllExceptionsFilter } from "./shared/infrastructure/filters/http-exception.filter";
 import { IdentificationTypeModule } from "./modules/identification_types/identification_type.module";
-import { UserModule } from "./modules/users/user.module";
 import { AuthModule } from "./modules/auth/auth.module";
-import { WalletModule } from "./modules/wallets/wallet.module";
 import { TopUpModule } from "./modules/top_ups/top_up.module";
 import { TransferModule } from "./modules/transfers/transfer.module";
+import { UserModule } from "./modules/users/user.module";
+import { WalletModule } from "./modules/wallets/wallet.module";
 
 @Module({
     imports: [
@@ -44,11 +44,11 @@ import { TransferModule } from "./modules/transfers/transfer.module";
         EnviromentConfigModule,
         BankModule,
         IdentificationTypeModule,
+        TopUpModule,
+        TransferModule,
         UserModule,
         AuthModule,
-        WalletModule,
-        TopUpModule,
-        TransferModule
+        WalletModule
     ],
     controllers: [AppController],
     providers: [

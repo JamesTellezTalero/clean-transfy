@@ -110,7 +110,7 @@ export class BankController {
                 { $ref: getSchemaPath(ConflictResponse) },
                 {
                     properties: {
-                        status: { type: "number", example: 400 },
+                        status: { type: "number", example: 409 },
                         message: {
                             type: "string",
                             example: "Sent Bank name already exist"
