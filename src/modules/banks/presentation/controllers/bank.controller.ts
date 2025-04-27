@@ -113,8 +113,7 @@ export class BankController {
                         status: { type: "number", example: 400 },
                         message: {
                             type: "string",
-
-                            examples: ["Sent Bank name already exist"]
+                            example: "Sent Bank name already exist"
                         },
                         item: {
                             nullable: true

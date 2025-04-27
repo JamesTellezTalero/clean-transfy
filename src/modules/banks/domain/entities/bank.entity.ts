@@ -1,16 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class Bank {
-    @ApiProperty({ description: "Bank id" })
+    @ApiProperty({ description: "id", type: "number" })
     id: number;
-    @ApiProperty({ description: "Bank name" })
+    @ApiProperty({ description: "name", type: "string" })
     name: string;
-    @ApiProperty({ description: "Bank code" })
+    @ApiProperty({ description: "code", type: "string" })
     code: string;
-    @ApiProperty({ description: "Bank status" })
+    @ApiProperty({ description: "status", type: "boolean" })
     status: boolean;
-    @ApiProperty({ description: "Bank create date" })
+    @ApiProperty({ description: "create date", type: "string" })
     created_at: Date;
-    @ApiProperty({ description: "Bank update date" })
+    @ApiProperty({ description: "update date", type: "string" })
     updated_at: Date;
 }
