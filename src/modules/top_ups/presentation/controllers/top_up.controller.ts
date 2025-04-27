@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Get,
+    HttpStatus,
+    Param,
+    Post,
+    UnauthorizedException,
+    UseGuards
+} from "@nestjs/common";
 import { ApiResponseDto } from "src/shared/application/dtos/api-responses/api-response.dto";
 import { SuccessResponse } from "src/shared/application/dtos/api-responses/success-response.dto";
 import { TopUpCreateAPIRequestDto } from "../dtos/top_up.create-api.dto";
@@ -21,6 +30,8 @@ import { BadRequestResponse } from "src/shared/application/dtos/api-responses/er
 import { ConflictResponse } from "src/shared/application/dtos/api-responses/errors/conflict-error-response.dto";
 import { mappedErrors } from "src/shared/application/utils/mapper-errors.utils";
 import { NotFoundResponse } from "src/shared/application/dtos/api-responses/errors/not-found-error-response.dto";
+import { UnauthorizedResponse } from "src/shared/application/dtos/api-responses/errors/unauthorized-error-response.dto";
+import { ForbidenResponse } from "src/shared/application/dtos/api-responses/errors/forbiden-error-response.dto";
 
 @ApiTags("Top Ups")
 @ApiExtraModels(
@@ -29,6 +40,8 @@ import { NotFoundResponse } from "src/shared/application/dtos/api-responses/erro
     BadRequestResponse,
     ConflictResponse,
     NotFoundResponse,
+    UnauthorizedResponse,
+    ForbidenResponse,
     mappedErrors,
     TopUp
 )
@@ -54,7 +67,7 @@ export class TopUpController {
                 {
                     properties: {
                         status: { type: "number", example: 200 },
-                        message: { type: "string", example: "createBank" },
+                        message: { type: "string", example: "createTransfer" },
                         item: { $ref: getSchemaPath(TopUp) },
                         errors: { nullable: true }
                     }
@@ -102,6 +115,54 @@ export class TopUpController {
                         message: {
                             type: "string",
                             example: "Wallet not found or inactive"
+                        },
+                        item: {
+                            nullable: true
+                        },
+                        errors: {
+                            nullable: true
+                        }
+                    }
+                }
+            ]
+        }
+    })
+    @ApiResponse({
+        status: 403,
+        description: "Top Up Forbiden Error",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(ForbidenResponse) },
+                {
+                    properties: {
+                        status: { type: "number", example: 403 },
+                        message: {
+                            type: "string",
+                            example: "No token provided"
+                        },
+                        item: {
+                            nullable: true
+                        },
+                        errors: {
+                            nullable: true
+                        }
+                    }
+                }
+            ]
+        }
+    })
+    @ApiResponse({
+        status: 401,
+        description: "Top Up Unauthorized Error",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(UnauthorizedException) },
+                {
+                    properties: {
+                        status: { type: "number", example: 401 },
+                        message: {
+                            type: "string",
+                            example: "Invalid or expired token"
                         },
                         item: {
                             nullable: true

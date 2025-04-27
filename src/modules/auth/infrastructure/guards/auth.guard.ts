@@ -8,6 +8,7 @@ import {
 import { Request } from "express";
 import { IAuthService } from "../../application/contracts/auth-service.interface";
 import { UnauthorizedResponse } from "src/shared/application/dtos/api-responses/errors/unauthorized-error-response.dto";
+import { ForbidenResponse } from "src/shared/application/dtos/api-responses/errors/forbiden-error-response.dto";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -20,7 +21,7 @@ export class AuthGuard implements CanActivate {
         const request = context.switchToHttp().getRequest<Request>();
 
         const token = this.extractTokenFromHeader(request);
-        if (!token) throw new UnauthorizedResponse("No token provided");
+        if (!token) throw new ForbidenResponse("No token provided");
 
         const payload = this.authService.verifyToken(token);
 
