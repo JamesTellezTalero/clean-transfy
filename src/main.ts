@@ -22,7 +22,8 @@ async function bootstrap() {
         swaggerOptions: {
             tagsSorter: "alpha",
             operationsSorter: "method"
-        }
+        },
+        customSiteTitle: "Clean Transfy API Docs"
     });
 
     // Asegúrate de que el puerto sea un número
