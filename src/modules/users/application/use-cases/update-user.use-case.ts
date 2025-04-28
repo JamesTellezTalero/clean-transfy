@@ -7,7 +7,8 @@ import { NotFoundResponse } from "src/shared/application/dtos/api-responses/erro
 
 @Injectable()
 export class updateUserUseCase
-    implements IUseCase<{ id: number; updateDto: UserUpdateDatabaseDto }, User>
+    implements
+        IUseCase<{ uuid: string; updateDto: UserUpdateDatabaseDto }, User>
 {
     constructor(
         @Inject("IUserRepository")
@@ -15,15 +16,17 @@ export class updateUserUseCase
     ) {}
 
     async execute(updateBody: {
-        id: number;
+        uuid: string;
         updateDto: UserUpdateDatabaseDto;
     }): Promise<User> {
-        const preExistUser = await this.userRepository.findById(updateBody.id);
+        const preExistUser = await this.userRepository.findByUuid(
+            updateBody.uuid
+        );
         if (!preExistUser)
             throw new NotFoundResponse("Sent User doesn't exist");
         else
             return this.userRepository.update(
-                updateBody.id,
+                preExistUser.id,
                 updateBody.updateDto
             );
     }

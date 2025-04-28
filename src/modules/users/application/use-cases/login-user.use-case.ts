@@ -7,6 +7,7 @@ import { HashUtils } from "src/shared/infrastructure/utils/hash.utils";
 import { NotFoundResponse } from "src/shared/application/dtos/api-responses/errors/not-found-error-response.dto";
 import { IAuthService } from "src/modules/auth/application/contracts/auth-service.interface";
 import { UserLoginApiResponseDto } from "../../presentation/dtos/user.login-api-response.dto";
+import { ConflictResponse } from "src/shared/application/dtos/api-responses/errors/conflict-error-response.dto";
 
 @Injectable()
 export class loginUserUseCase
@@ -39,7 +40,7 @@ export class loginUserUseCase
         );
 
         if (!isValidPassword)
-            throw new NotFoundResponse("Sent user or password doesn't exist");
+            throw new ConflictResponse("Sent password doesn't match");
         return {
             user: UserPrevExist,
             token: this.authService.generateToken({

@@ -6,6 +6,7 @@ import { IWalletRepository } from "../../domain/repositories/wallet.respository.
 import { ConflictResponse } from "src/shared/application/dtos/api-responses/errors/conflict-error-response.dto";
 import { IUserRepository } from "src/modules/users/domain/repositories/user.respository.interface";
 import { IBankRepository } from "src/modules/banks/domain/repositories/bank.respository.interface";
+import { NotFoundResponse } from "src/shared/application/dtos/api-responses/errors/not-found-error-response.dto";
 
 @Injectable()
 export class createWalletUseCase
@@ -26,9 +27,9 @@ export class createWalletUseCase
         );
         const preExistBank = await this.bankRepository.findById(dto.bank_id);
         if (!preExistuser)
-            throw new ConflictResponse("Sent User doesn't exist");
+            throw new NotFoundResponse("Sent User doesn't exist");
         else if (!preExistBank)
-            throw new ConflictResponse("Sent Bank doesn't exist");
+            throw new NotFoundResponse("Sent Bank doesn't exist");
 
         const preExistWallet =
             await this.walletRepository.findByBankIdAndUserId(

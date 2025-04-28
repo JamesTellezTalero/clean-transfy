@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Expose } from "class-transformer";
 import {
     IsNotEmpty,
@@ -9,10 +10,12 @@ import {
 import { BaseDto } from "src/shared/application/dtos/base/base.dto";
 
 export class UserLoginApiDto extends BaseDto<UserLoginApiDto> {
+    @ApiProperty({ name: "username_or_email", type: "string" })
     @IsString()
     @IsNotEmpty()
     @Expose()
     username_or_email: string;
+    @ApiProperty({ name: "password", type: "string" })
     @IsString()
     @IsNotEmpty()
     @Expose()

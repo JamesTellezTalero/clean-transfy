@@ -18,7 +18,12 @@ async function bootstrap() {
         .setVersion("1.0")
         .build();
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup("api-docs", app, document);
+    SwaggerModule.setup("api-docs", app, document, {
+        swaggerOptions: {
+            tagsSorter: "alpha",
+            operationsSorter: "method"
+        }
+    });
 
     // Asegúrate de que el puerto sea un número
     const port = Number(process.env.PORT) || 4044;

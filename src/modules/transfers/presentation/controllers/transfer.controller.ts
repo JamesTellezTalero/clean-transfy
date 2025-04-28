@@ -246,7 +246,7 @@ export class TransferController {
     }
 
     @Get(":id")
-    @ApiOperation({ summary: "Find AllFind By Id Transfer" })
+    @ApiOperation({ summary: "Find By Id Transfer" })
     @ApiParam({ name: "id", type: "number" })
     @ApiResponse({
         status: 200,

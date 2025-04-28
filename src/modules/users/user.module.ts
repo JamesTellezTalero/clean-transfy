@@ -16,6 +16,7 @@ import { updateUserUseCase } from "./application/use-cases/update-user.use-case"
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserORMEntity } from "./infrastructure/orm/user.orm-entity";
 import { AuthModule } from "src/modules/auth/auth.module";
+import { findByUuidUserUseCase } from "./application/use-cases/find-by-uuid-user.use-case";
 
 @Module({
     imports: [TypeOrmModule.forFeature([UserORMEntity]), AuthModule],
@@ -30,6 +31,7 @@ import { AuthModule } from "src/modules/auth/auth.module";
         loginUserUseCase,
         findAllUserUseCase,
         findByIdUserUseCase,
+        findByUuidUserUseCase,
         findByEmailUserUseCase,
         findByUsernameUserUseCase,
         findByIdentificationNumberAndIdentificationTypeIdUserUseCase,

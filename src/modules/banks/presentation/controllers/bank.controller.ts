@@ -32,6 +32,7 @@ import { Bank } from "../../domain/entities/bank.entity";
 import { mappedErrors } from "src/shared/application/utils/mapper-errors.utils";
 import { BadRequestResponse } from "src/shared/application/dtos/api-responses/errors/bad-request-error-response.dto";
 import { ConflictResponse } from "src/shared/application/dtos/api-responses/errors/conflict-error-response.dto";
+import { NotFoundResponse } from "src/shared/application/dtos/api-responses/errors/not-found-error-response.dto";
 
 @ApiTags("Banks")
 @ApiExtraModels(
@@ -39,6 +40,7 @@ import { ConflictResponse } from "src/shared/application/dtos/api-responses/erro
     SuccessResponse,
     BadRequestResponse,
     ConflictResponse,
+    NotFoundResponse,
     mappedErrors,
     Bank
 )
@@ -282,6 +284,30 @@ export class BankController {
             ]
         }
     })
+    @ApiResponse({
+        status: 404,
+        description: "Bank Not Found Error",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(NotFoundResponse) },
+                {
+                    properties: {
+                        status: { type: "number", example: 404 },
+                        message: {
+                            type: "string",
+                            example: "Sent Bank doesn't exist"
+                        },
+                        item: {
+                            nullable: true
+                        },
+                        errors: {
+                            nullable: true
+                        }
+                    }
+                }
+            ]
+        }
+    })
     async updateBank(
         @Param("id") id: number,
         @Body()
@@ -314,6 +340,30 @@ export class BankController {
                             nullable: true
                         },
                         errors: { nullable: true }
+                    }
+                }
+            ]
+        }
+    })
+    @ApiResponse({
+        status: 404,
+        description: "Bank Not Found Error",
+        schema: {
+            allOf: [
+                { $ref: getSchemaPath(NotFoundResponse) },
+                {
+                    properties: {
+                        status: { type: "number", example: 404 },
+                        message: {
+                            type: "string",
+                            example: "Sent Bank doesn't exist"
+                        },
+                        item: {
+                            nullable: true
+                        },
+                        errors: {
+                            nullable: true
+                        }
                     }
                 }
             ]
