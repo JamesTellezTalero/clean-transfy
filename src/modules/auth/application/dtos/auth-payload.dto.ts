@@ -1,4 +1,11 @@
+/**
+ * DTO para el contenido suministrado la creacion del token auth
+ */
 export class AuthPayloadDto {
+    /**
+     * User UUUID del usuario.
+     * @example "7ea3b7fe-f496-4bb3-8797-5eb5916b2881"
+     */
     readonly user_uuid: string;
 
     /**

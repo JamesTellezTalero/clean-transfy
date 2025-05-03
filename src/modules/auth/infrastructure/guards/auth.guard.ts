@@ -10,13 +10,31 @@ import { IAuthService } from "../../application/contracts/auth-service.interface
 import { UnauthorizedResponse } from "src/shared/application/dtos/api-responses/errors/unauthorized-error-response.dto";
 import { ForbidenResponse } from "src/shared/application/dtos/api-responses/errors/forbiden-error-response.dto";
 
+/**
+ * Guard para verificar si un token es valido.
+ *
+ * Este guard se usa para proteger rutas validando la integridad y validez.
+ */
 @Injectable()
 export class AuthGuard implements CanActivate {
+    /**
+     * Crea una instancia del guard con el servicio de autenticacion inyectado.
+     *
+     * @param {IAuthService} authService - Servicio que permite consultar información del usuario.
+     */
     constructor(
         @Inject("IAuthService")
         private readonly authService: IAuthService
     ) {}
 
+    /**
+     * Verifica la autenticidad del token.
+     *
+     * @param context - Contexto de ejecución.
+     * @returns {boolean} si el usuario está activo.
+     * @throws {ForbidenResponse} Si el token no es sumministrado.
+     * @throws {UnauthorizedResponse} Si el token es invalido o ha expirado.
+     */
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest<Request>();
 
@@ -36,6 +54,13 @@ export class AuthGuard implements CanActivate {
         return true;
     }
 
+    /**
+     * Verifica la autenticidad del token.
+     *
+     * @param {Request} requuest - request de la peticion http.
+     * @returns {string} token enviado en los headers.
+     * @returns {null} en caso de no encontrar token en los headers.
+     */
     private extractTokenFromHeader(request: Request): string | null {
         const authHeader = request.headers.authorization;
         if (!authHeader) return null;
