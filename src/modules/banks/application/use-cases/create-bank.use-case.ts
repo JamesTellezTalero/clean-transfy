@@ -5,15 +5,34 @@ import { BankCreateDatabaseDto } from "../dtos/bank.create-database.dto";
 import { Bank } from "../../domain/entities/bank.entity";
 import { ConflictResponse } from "src/shared/application/dtos/api-responses/errors/conflict-error-response.dto";
 
+/**
+ * caso de uso destinado a la creacion de bancos
+ *
+ * Responsable de la creacion de bancos
+ * asi como su validacion de preexistencia para las propiedades name y code
+ * Implementa el contrato IUseCase
+ */
 @Injectable()
 export class createBankUseCase
     implements IUseCase<BankCreateDatabaseDto, Bank>
 {
+    /**
+     * Crea una instancia del caso de uso con el repositorio de bancos inyectado.
+     *
+     * @param {IBankRepository} bankRepository - Repositorio encargado de procesos del lectura y escritura para la interface Banks.
+     */
     constructor(
         @Inject("IBankRepository")
         private bankRepository: IBankRepository
     ) {}
 
+    /**
+     * Ejecuta la logica de negocio: creacion de bancos y validacion de pre existencias.
+     *
+     * @param { BankCreateDatabaseDto} createDto - Contenido necesario para la creacion de bancos.
+     * @returns {Bank} Modelo primitivo de entidad Bank
+     * @throw {ConflictResponse} En caso de preexistencias por namo o code
+     */
     async execute(createDto: BankCreateDatabaseDto): Promise<Bank> {
         const preExistBankName = await this.bankRepository.findByName(
             createDto.name

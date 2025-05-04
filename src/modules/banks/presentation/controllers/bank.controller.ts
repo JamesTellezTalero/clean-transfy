@@ -34,6 +34,13 @@ import { BadRequestResponse } from "src/shared/application/dtos/api-responses/er
 import { ConflictResponse } from "src/shared/application/dtos/api-responses/errors/conflict-error-response.dto";
 import { NotFoundResponse } from "src/shared/application/dtos/api-responses/errors/not-found-error-response.dto";
 
+/**
+ * Controlador para la gestión de bancos.
+ * Expone endpoints RESTful para crear, actualizar, consultar y eliminar bancos.
+ *
+ * Cada método retorna una respuesta estructurada mediante `SuccessResponse`,
+ * y puede lanzar errores estándar como BadRequest, Conflict o NotFound.
+ */
 @ApiTags("Banks")
 @ApiExtraModels(
     ApiResponseDto,
@@ -56,6 +63,13 @@ export class BankController {
         private readonly findByCodeBankUseCase: findByCodeBankUseCase
     ) {}
 
+    /**
+     * Crea un nuevo banco.
+     *
+     * @param {BankCreateAPIRequestDto} createBankDto - DTO con la información del banco.
+     * @returns {ApiResponseDto<Bank, void>} Banco creado envuelto en respuesta estandarizada.
+     * @throw {ConflictResponse} En caso de preexistencias por namo o code
+     */
     @Post()
     @ApiOperation({ summary: "Create Bank" })
     @ApiBody({ type: BankCreateAPIRequestDto })
@@ -139,6 +153,11 @@ export class BankController {
         );
     }
 
+    /**
+     * Consulta todos los bancos.
+     *
+     * @returns {ApiResponseDto<Bank[], void>} Arreglo de bancos encontrados.
+     */
     @Get()
     @ApiOperation({ summary: "Find All Bank" })
     @ApiResponse({
@@ -168,6 +187,12 @@ export class BankController {
         );
     }
 
+    /**
+     * Consulta un banco por su ID.
+     *
+     * @param {number} id - Identificador del banco.
+     * @returns {ApiResponseDto<Bank, void>} Banco encontrado.
+     */
     @Get(":id")
     @ApiOperation({ summary: "Find By Id Bank" })
     @ApiParam({ name: "id", type: "number" })
@@ -199,6 +224,12 @@ export class BankController {
         );
     }
 
+    /**
+     * Consulta un banco por su nombre.
+     *
+     * @param {string} name - Nombre del banco.
+     * @returns {ApiResponseDto<Bank, void>} Banco encontrado
+     */
     @Get("name/:name")
     @ApiOperation({ summary: "Find By Name Bank" })
     @ApiParam({ name: "name", type: "string" })
@@ -230,6 +261,12 @@ export class BankController {
         );
     }
 
+    /**
+     * Consulta un banco por su código.
+     *
+     * @param {string} code - Código único del banco.
+     * @returns {ApiResponseDto<Bank, void>} Banco encontrado
+     */
     @Get("code/:code")
     @ApiOperation({ summary: "Find By Code Bank" })
     @ApiParam({ name: "code", type: "string" })
@@ -261,6 +298,14 @@ export class BankController {
         );
     }
 
+    /**
+     * Actualiza un banco existente.
+     *
+     * @param {number} id - ID del banco a actualizar.
+     * @param {BankUpdateAPIRequestDto} updateBankDto - DTO con los datos actualizados.
+     * @returns {ApiResponseDto<Bank, void>} Banco actualizado.
+     * @throw {NotFoundResponse} En caso de no existir el banco
+     */
     @Put(":id")
     @ApiOperation({ summary: "Update Bank" })
     @ApiParam({ name: "id", type: "number" })
@@ -323,6 +368,13 @@ export class BankController {
         );
     }
 
+    /**
+     * Elimina un banco por su ID.
+     *
+     * @param {number} id - ID del banco a eliminar.
+     * @returns {ApiResponseDto<null, void>} Confirmación de eliminación
+     * @throw {NotFoundResponse} En caso de no existir el banco
+     */
     @Delete(":id")
     @ApiOperation({ summary: "Remove Bank" })
     @ApiParam({ name: "id", type: "number" })
