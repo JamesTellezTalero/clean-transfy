@@ -1,12 +1,52 @@
 import { ApiProperty } from "@nestjs/swagger";
 
+/**
+ * Entidad primitiva que representa un tipo de identificación.
+ */
 export class IdentificationType {
-    @ApiProperty({ description: "id", type: "number" })
+    /**
+     * Identificador único del tipo de identificación.
+     * @example 1
+     */
+    @ApiProperty({
+        description: "ID único del tipo de identificación",
+        type: "number",
+        example: 1
+    })
     id: number;
-    @ApiProperty({ description: "name", type: "string" })
+
+    /**
+     * Nombre del tipo de identificación.
+     * @example "Cédula de ciudadanía"
+     */
+    @ApiProperty({
+        description: "Nombre del tipo de identificación",
+        type: "string",
+        example: "Cédula de ciudadanía"
+    })
     name: string;
-    @ApiProperty({ description: "created_at", type: "string" })
+
+    /**
+     * Fecha de creación del tipo de identificación.
+     * @example "2022-05-01T12:00:00Z"
+     */
+    @ApiProperty({
+        description: "Fecha de creación del tipo de identificación",
+        type: "string",
+        format: "date-time",
+        example: "2022-05-01T12:00:00Z"
+    })
     created_at: Date;
-    @ApiProperty({ description: "updated_at", type: "string" })
+
+    /**
+     * Fecha de última actualización del tipo de identificación.
+     * @example "2023-04-20T10:15:00Z"
+     */
+    @ApiProperty({
+        description: "Fecha de última actualización del tipo de identificación",
+        type: "string",
+        format: "date-time",
+        example: "2023-04-20T10:15:00Z"
+    })
     updated_at: Date;
 }
