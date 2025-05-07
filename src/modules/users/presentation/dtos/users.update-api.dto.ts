@@ -10,7 +10,7 @@ import {
 } from "class-validator";
 import { BaseDto } from "src/shared/application/dtos/base/base.dto";
 
-export class UserUpdateApiDto extends BaseDto<UserUpdateApiDto> {
+export class UserUpdateAPIRequestDto extends BaseDto<UserUpdateAPIRequestDto> {
     @ApiProperty({ name: "username", type: "string" })
     @IsString()
     @IsNotEmpty()

@@ -9,10 +9,10 @@ import {
 } from "@nestjs/common";
 import { ApiResponseDto } from "src/shared/application/dtos/api-responses/api-response.dto";
 import { SuccessResponse } from "src/shared/application/dtos/api-responses/success-response.dto";
-import { UserLoginApiDto } from "../dtos/users.login-api.dto";
-import { UserCreateApiDto } from "../dtos/users.create-api.dto";
-import { UserUpdateApiDto } from "../dtos/users.update-api.dto";
-import { UserChangePasswordApiDto } from "../dtos/users.change-password-api";
+import { UserLoginAPIRequestDto } from "../dtos/users.login-api.dto";
+import { UserCreateAPIRequestDto } from "../dtos/users.create-api.dto";
+import { UserUpdateAPIRequestDto } from "../dtos/users.update-api.dto";
+import { UserChangePasswordAPIRequestDto } from "../dtos/users.change-password-api";
 import { createUserUseCase } from "../../application/use-cases/create-user.use-case";
 import { deleteUserUseCase } from "../../application/use-cases/delete-users.use-case";
 import { loginUserUseCase } from "../../application/use-cases/login-user.use-case";
@@ -290,7 +290,7 @@ export class UserController {
     }
 
     @Post("/")
-    @ApiBody({ type: UserCreateApiDto })
+    @ApiBody({ type: UserCreateAPIRequestDto })
     @ApiOperation({ summary: "Create User" })
     @ApiResponse({
         status: 200,
@@ -340,9 +340,9 @@ export class UserController {
         }
     })
     async createUser(
-        @Body() createUserDto: UserCreateApiDto
+        @Body() createUserDto: UserCreateAPIRequestDto
     ): Promise<ApiResponseDto<User, void>> {
-        createUserDto = await UserCreateApiDto.FromPlain(createUserDto);
+        createUserDto = await UserCreateAPIRequestDto.FromPlain(createUserDto);
         return new SuccessResponse(
             "createUser",
             await this.createUserUseCase.execute(createUserDto)
@@ -350,7 +350,7 @@ export class UserController {
     }
 
     @Post("/login")
-    @ApiBody({ type: UserLoginApiDto })
+    @ApiBody({ type: UserLoginAPIRequestDto })
     @ApiOperation({ summary: "Login User" })
     @ApiResponse({
         status: 200,
@@ -422,9 +422,9 @@ export class UserController {
         }
     })
     async loginUser(
-        @Body() loginUserDto: UserLoginApiDto
+        @Body() loginUserDto: UserLoginAPIRequestDto
     ): Promise<ApiResponseDto<UserLoginApiResponseDto, void>> {
-        loginUserDto = await UserLoginApiDto.FromPlain(loginUserDto);
+        loginUserDto = await UserLoginAPIRequestDto.FromPlain(loginUserDto);
         return new SuccessResponse(
             "loginUser",
             await this.loginUserUseCase.execute(loginUserDto)
@@ -480,9 +480,9 @@ export class UserController {
     })
     async updateUser(
         @Param("uuid") uuid: string,
-        @Body() updateUserDto: UserUpdateApiDto
+        @Body() updateUserDto: UserUpdateAPIRequestDto
     ): Promise<ApiResponseDto<User, void>> {
-        updateUserDto = await UserUpdateApiDto.FromPlain(updateUserDto);
+        updateUserDto = await UserUpdateAPIRequestDto.FromPlain(updateUserDto);
         return new SuccessResponse(
             "updateUser",
             await this.updateUserUseCase.execute({
@@ -623,9 +623,9 @@ export class UserController {
     })
     async changePasswordUser(
         @Param("uuid") uuid: string,
-        @Body() changePasswordUserDto: UserChangePasswordApiDto
+        @Body() changePasswordUserDto: UserChangePasswordAPIRequestDto
     ): Promise<ApiResponseDto<User, void>> {
-        changePasswordUserDto = await UserChangePasswordApiDto.FromPlain(
+        changePasswordUserDto = await UserChangePasswordAPIRequestDto.FromPlain(
             changePasswordUserDto
         );
         return new SuccessResponse(

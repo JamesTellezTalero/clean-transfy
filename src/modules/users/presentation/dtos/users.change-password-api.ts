@@ -8,7 +8,7 @@ import {
     IsString
 } from "class-validator";
 import { BaseDto } from "src/shared/application/dtos/base/base.dto";
-export class UserChangePasswordApiDto extends BaseDto<UserChangePasswordApiDto> {
+export class UserChangePasswordAPIRequestDto extends BaseDto<UserChangePasswordAPIRequestDto> {
     @ApiProperty({ name: "new_password", type: "string" })
     @IsString()
     @IsNotEmpty()
