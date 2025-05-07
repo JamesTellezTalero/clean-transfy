@@ -23,7 +23,8 @@
         "migration:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/shared/infrastructure/config/data-source.ts",
         "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/shared/infrastructure/config/data-source.ts",
         "seed": "ts-node src/shared/infrastructure/typeorm/seeds/seed.ts",
-        "diagram": "ts-node src/tools/diagram/gen-entities-for-diagram.ts"
+        "diagram": "ts-node src/tools/diagram/gen-entities-for-diagram.ts",
+        "docs": "typedoc src --entryPointStrategy expand"
     },
     "dependencies": {
         "@nestjs/common": "^11.0.0",
@@ -71,7 +72,7 @@
         "ts-loader": "^9.5.1",
         "ts-node": "^10.9.2",
         "tsconfig-paths": "^4.2.0",
-        "typedoc": "^0.28.3",
+        "typedoc": "^0.28.4",
         "typescript": "^5.4.5"
     },
     "jest": {
