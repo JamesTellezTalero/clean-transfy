@@ -3,62 +3,56 @@ import { BankUpdateDatabaseDto } from "../../application/dtos/bank.update-databa
 import { Bank } from "../entities/bank.entity";
 
 /**
- * Contrato que define las operaciones de acceso a datos
+ * Contrato que define las operaciones de persistencia
  * para la entidad `Bank` dentro del dominio.
  */
 export interface IBankRepository {
     /**
-     * Obtiene un banco por su identificador único.
-     * @param {number} id - Identificador del banco.
-     * @returns {Bank} Modelo primitivo de entidad Bank
+     * Busca un banco por su identificador único.
+     * @param id Identificador del banco.
+     * @returns Modelo primitivo de entidad Bank.
      */
     findById(id: number): Promise<Bank>;
 
     /**
-     * Obtiene un banco por su nombre.
-     * @param {string} name - nombre del banco.
-     * @returns {Bank} Modelo primitivo de entidad Bank
+     * Busca un banco por su nombre.
+     * @param name Nombre del banco.
+     * @returns Modelo primitivo de entidad Bank.
      */
     findByName(name: string): Promise<Bank>;
 
     /**
-     * Obtiene un banco por su codigo único.
-     * @param {string} code - codigo del banco.
-     * @returns {Bank} Modelo primitivo de entidad Bank
+     * Busca un banco por su código único.
+     * @param code Código del banco.
+     * @returns Modelo primitivo de entidad Bank.
      */
     findByCode(code: string): Promise<Bank>;
 
     /**
-     * Obtiene todos los bancos.
-     * @returns {Array<Bank>} Modelos primitivos de entidad Bank
+     * Obtiene todos los bancos registrados.
+     * @returns Arreglo de modelos primitivos de entidad Bank.
      */
     findAll(): Promise<Bank[]>;
 
     /**
-     * Creacion de Bancos.
-     * @param {BankCreateDatabaseDto} data - contenido del banco.
-     * @returns {Bank} Modelo primitivo de entidad Bank
+     * Crea un nuevo banco.
+     * @param data Contenido necesario para crear un banco.
+     * @returns Modelo primitivo de entidad Bank creado.
      */
     create(data: BankCreateDatabaseDto): Promise<Bank>;
 
     /**
-     * Actualizacion de Bancos.
-     *
-     * @param {{
-     *      id: number,
-     *      dto: BankUpdateDatabaseDto
-     * }}
-     * id - Id necesario para la actualizacion de bancos.
-     * dto - body necesario para la actualizacion de bancos.
-     *
-     * @returns {Bank} Modelo primitivo de entidad Bank
+     * Actualiza la información de un banco existente.
+     * @param id Identificador del banco a actualizar.
+     * @param data Datos a actualizar.
+     * @returns Modelo primitivo de entidad Bank actualizado.
      */
     update(id: number, data: BankUpdateDatabaseDto): Promise<Bank>;
 
     /**
-     * Eliminacion de Bancos.
-     * @param {number} id - identificador unico del banco.
-     * @returns {void}
+     * Elimina un banco por su identificador único.
+     * @param id Identificador del banco a eliminar.
+     * @returns Promesa vacía.
      */
     delete(id: number): Promise<void>;
 }
