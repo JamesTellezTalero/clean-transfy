@@ -4,15 +4,15 @@ import { IBankRepository } from "../../domain/repositories/bank.respository.inte
 import { Bank } from "../../domain/entities/bank.entity";
 
 /**
- * Caso de uso destinado a la obtención de un banco por su nombre.
+ * Caso de uso destinado a la obtención de todos los bancos.
  *
  * Responsable de:
- * - Recuperar una entidad Bank utilizando su nombre único.
+ * - Recuperar todas las entidades Bank registradas en el sistema.
  *
  * Implementa el contrato `IUseCase`.
  */
 @Injectable()
-export class FindBankByNameUseCase implements IUseCase<string, Bank> {
+export class FindAllBanksUseCase implements IUseCase<null, Bank[]> {
     /**
      * Inicializa una instancia del caso de uso con el repositorio de bancos inyectado.
      *
@@ -24,12 +24,11 @@ export class FindBankByNameUseCase implements IUseCase<string, Bank> {
     ) {}
 
     /**
-     * Ejecuta la lógica de negocio: obtención de un banco a partir de su nombre.
+     * Ejecuta la lógica de negocio: recuperación de todos los bancos registrados.
      *
-     * @param name Nombre único del banco.
-     * @returns La entidad Bank correspondiente al nombre proporcionado.
+     * @returns Lista de entidades Bank.
      */
-    async execute(name: string): Promise<Bank> {
-        return this.bankRepository.findByName(name);
+    async execute(): Promise<Bank[]> {
+        return this.bankRepository.findAll();
     }
 }

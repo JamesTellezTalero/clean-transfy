@@ -16,7 +16,7 @@ import { SuccessResponse } from "src/shared/application/dtos/api-responses/succe
 import { createWalletUseCase } from "../../application/use-cases/create-wallet.use-case";
 import { deleteWalletUseCase } from "../../application/use-cases/delete-wallet.use-case";
 import { updateWalletUseCase } from "../../application/use-cases/update-wallet.use-case";
-import { findByAllWalletUseCase } from "../../application/use-cases/find-by-all-wallet.use-case";
+import { findAllWalletUseCase } from "../../application/use-cases/find-all-wallet.use-case";
 import { findByIdWalletUseCase } from "../../application/use-cases/find-by-id-wallet.use-case";
 import { findByUuidWalletUseCase } from "../../application/use-cases/find-by-uuid-wallet.use-case";
 import { findByUserIdWalletUseCase } from "../../application/use-cases/find-by-user-id-wallet.use-case";
@@ -57,7 +57,7 @@ export class WalletController {
     constructor(
         private readonly createWalletUseCase: createWalletUseCase,
         private readonly deleteWalletUseCase: deleteWalletUseCase,
-        private readonly findAllWalletUseCase: findByAllWalletUseCase,
+        private readonly findAllWalletUseCase: findAllWalletUseCase,
         private readonly findByIdWalletUseCase: findByIdWalletUseCase,
         private readonly findByUuidWalletUseCase: findByUuidWalletUseCase,
         private readonly findByUserIdWalletUseCase: findByUserIdWalletUseCase,

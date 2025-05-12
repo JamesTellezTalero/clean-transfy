@@ -10,13 +10,6 @@ import {
 } from "@nestjs/common";
 import { ApiResponseDto } from "src/shared/application/dtos/api-responses/api-response.dto";
 import { SuccessResponse } from "src/shared/application/dtos/api-responses/success-response.dto";
-import { createBankUseCase } from "../../application/use-cases/create-bank.use-case";
-import { deleteBankUseCase } from "../../application/use-cases/delete-bank.use-case";
-import { findByAllBankUseCase } from "../../application/use-cases/find-by-all-bank.use-case";
-import { findByIdBankUseCase } from "../../application/use-cases/find-by-id-bank.use-case";
-import { findByNameBankUseCase } from "../../application/use-cases/find-by-name-bank.use-case";
-import { findByCodeBankUseCase } from "../../application/use-cases/find-by-code-bank.use-case";
-import { updateBankUseCase } from "../../application/use-cases/update-bank.use-case";
 import { BankCreateAPIRequestDto } from "../dto/bank.create-api.dto";
 import { BankUpdateAPIRequestDto } from "../dto/bank.update-api.dto";
 import {
@@ -33,6 +26,13 @@ import { mappedErrors } from "src/shared/application/utils/mapper-errors.utils";
 import { BadRequestResponse } from "src/shared/application/dtos/api-responses/errors/bad-request-error-response.dto";
 import { ConflictResponse } from "src/shared/application/dtos/api-responses/errors/conflict-error-response.dto";
 import { NotFoundResponse } from "src/shared/application/dtos/api-responses/errors/not-found-error-response.dto";
+import { CreateBankUseCase } from "../../application/use-cases/create-bank.use-case";
+import { DeleteBankUseCase } from "../../application/use-cases/delete-bank.use-case";
+import { UpdateBankUseCase } from "../../application/use-cases/update-bank.use-case";
+import { FindAllBanksUseCase } from "../../application/use-cases/find-all-bank.use-case";
+import { FindBankByIdUseCase } from "../../application/use-cases/find-by-id-bank.use-case";
+import { FindBankByNameUseCase } from "../../application/use-cases/find-by-name-bank.use-case";
+import { FindBankByCodeUseCase } from "../../application/use-cases/find-by-code-bank.use-case";
 
 /**
  * Controlador para la gestión de bancos.
@@ -54,13 +54,13 @@ import { NotFoundResponse } from "src/shared/application/dtos/api-responses/erro
 @Controller("bank")
 export class BankController {
     constructor(
-        private readonly createBankUseCase: createBankUseCase,
-        private readonly deleteBankUseCase: deleteBankUseCase,
-        private readonly updateBankUseCase: updateBankUseCase,
-        private readonly findAllBankUseCase: findByAllBankUseCase,
-        private readonly findByIdBankUseCase: findByIdBankUseCase,
-        private readonly findByNameBankUseCase: findByNameBankUseCase,
-        private readonly findByCodeBankUseCase: findByCodeBankUseCase
+        private readonly createBankUseCase: CreateBankUseCase,
+        private readonly deleteBankUseCase: DeleteBankUseCase,
+        private readonly updateBankUseCase: UpdateBankUseCase,
+        private readonly findAllBankUseCase: FindAllBanksUseCase,
+        private readonly FindBankByIdUseCase: FindBankByIdUseCase,
+        private readonly findBankByNameUseCase: FindBankByNameUseCase,
+        private readonly findBankByCodeUseCase: FindBankByCodeUseCase
     ) {}
 
     /**
@@ -220,7 +220,7 @@ export class BankController {
     ): Promise<ApiResponseDto<Bank, void>> {
         return new SuccessResponse(
             "findByIdBank",
-            await this.findByIdBankUseCase.execute(id)
+            await this.FindBankByIdUseCase.execute(id)
         );
     }
 
@@ -257,7 +257,7 @@ export class BankController {
     ): Promise<ApiResponseDto<Bank, void>> {
         return new SuccessResponse(
             "findByNameBank",
-            await this.findByNameBankUseCase.execute(name)
+            await this.findBankByNameUseCase.execute(name)
         );
     }
 
@@ -294,7 +294,7 @@ export class BankController {
     ): Promise<ApiResponseDto<Bank, void>> {
         return new SuccessResponse(
             "findByCodeBank",
-            await this.findByCodeBankUseCase.execute(code)
+            await this.findBankByCodeUseCase.execute(code)
         );
     }
 

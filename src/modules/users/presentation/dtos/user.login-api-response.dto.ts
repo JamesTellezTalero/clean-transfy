@@ -6,7 +6,7 @@ import { BaseDto } from "src/shared/application/dtos/base/base.dto";
  * DTO utilizado para la respuesta del inicio de sesión de un usuario.
  * Contiene un token JWT y los detalles del usuario.
  */
-export class UserLoginApiResponseDto extends BaseDto<UserLoginApiResponseDto> {
+export class UserLoginApiResponseDto {
     /**
      * Token de autenticación generado para el usuario.
      * Este token se usa para autenticar al usuario en futuras solicitudes.

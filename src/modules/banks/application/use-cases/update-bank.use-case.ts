@@ -6,46 +6,47 @@ import { Bank } from "../../domain/entities/bank.entity";
 import { NotFoundResponse } from "src/shared/application/dtos/api-responses/errors/not-found-error-response.dto";
 
 /**
- * caso de uso destinado a la actualizacion de bancos
+ * Caso de uso destinado a la actualización de bancos.
  *
- * Responsable de la actualizacion de bancos
- * asi como su validacion de preeexistencia para la propiedad id
- * Implementa el contrato IUseCase
+ * Responsable de:
+ * - Validar la existencia del banco por ID.
+ * - Actualizar los datos del banco.
+ *
+ * Implementa el contrato `IUseCase`.
  */
 @Injectable()
-export class updateBankUseCase
+export class UpdateBankUseCase
     implements IUseCase<{ id: number; dto: BankUpdateDatabaseDto }, Bank>
 {
     /**
-     * Crea una instancia del caso de uso con el repositorio de bancos inyectado.
+     * Inicializa una instancia del caso de uso con el repositorio de bancos inyectado.
      *
-     * @param {IBankRepository} bankRepository - Repositorio encargado de procesos del lectura y escritura para la interface Banks.
+     * @param bankRepository Repositorio encargado del acceso a datos para entidades Bank.
      */
     constructor(
         @Inject("IBankRepository")
-        private bankRepository: IBankRepository
+        private readonly bankRepository: IBankRepository
     ) {}
 
     /**
-     * Ejecuta la logica de negocio: actualizacion de bancos y validacion de preexistencia.
+     * Ejecuta la lógica de negocio para actualizar un banco, previa validación de existencia.
      *
-     * @param {{
-     *      id: number,
-     *      dto: BankUpdateDatabaseDto
-     * }}
-     * id - Id necesario para la actualizacion de bancos.
-     * dto - body necesario para la actualizacion de bancos.
+     * @param updateBody Objeto que contiene:
+     * - `id`: ID del banco a actualizar.
+     * - `dto`: Datos a actualizar.
      *
-     * @returns {Bank} Modelo primitivo de entidad Bank
-     * @throw {NotFoundResponse} En caso de no existir el banco
+     * @returns La entidad Bank actualizada.
+     * @throws {NotFoundResponse} Si el banco con el ID proporcionado no existe.
      */
     async execute(updateBody: {
         id: number;
         dto: BankUpdateDatabaseDto;
     }): Promise<Bank> {
-        const preExistBank = await this.bankRepository.findById(updateBody.id);
-        if (!preExistBank)
-            throw new NotFoundResponse("Sent Bank doesn't exist");
-        else return this.bankRepository.update(updateBody.id, updateBody.dto);
+        const existingBank = await this.bankRepository.findById(updateBody.id);
+
+        if (!existingBank)
+            throw new NotFoundResponse("The specified bank does not exist.");
+
+        return this.bankRepository.update(updateBody.id, updateBody.dto);
     }
 }

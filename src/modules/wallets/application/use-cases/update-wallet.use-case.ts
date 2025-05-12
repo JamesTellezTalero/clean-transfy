@@ -6,15 +6,35 @@ import { IWalletRepository } from "../../domain/repositories/wallet.respository.
 import { Wallet } from "../../domain/entities/wallet.entity";
 import { WalletUpdateDatabaseDto } from "../dtos/wallet.update-database.dto";
 
+/**
+ * Caso de uso para actualizar una billetera en la base de datos.
+ *
+ * Este caso de uso verifica la existencia de la billetera antes de aplicar los cambios.
+ *
+ * @class updateWalletUseCase
+ */
 @Injectable()
 export class updateWalletUseCase
     implements IUseCase<{ id: number; dto: WalletUpdateDatabaseDto }, Wallet>
 {
+    /**
+     * Constructor del caso de uso.
+     *
+     * @param {IWalletRepository} walletRepository Repositorio encargado de las operaciones con billeteras.
+     */
     constructor(
         @Inject("IWalletRepository")
         private walletRepository: IWalletRepository
     ) {}
 
+    /**
+     * Ejecuta la actualización de una billetera.
+     *
+     * Verifica que la billetera exista antes de proceder con la actualización.
+     *
+     * @param {{ id: number; dto: WalletUpdateDatabaseDto }} updateBody Objeto con el ID y los datos a actualizar.
+     * @returns {Promise<Wallet>} La entidad actualizada.
+     */
     async execute(updateBody: {
         id: number;
         dto: WalletUpdateDatabaseDto;

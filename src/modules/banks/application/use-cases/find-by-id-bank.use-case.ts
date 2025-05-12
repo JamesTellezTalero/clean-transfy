@@ -4,17 +4,19 @@ import { IBankRepository } from "../../domain/repositories/bank.respository.inte
 import { Bank } from "../../domain/entities/bank.entity";
 
 /**
- * caso de uso destinado a la obtencion de bancos por id
+ * Caso de uso destinado a la obtención de un banco por su ID.
  *
- * Responsable de la obtencion por id de bancos
- * Implementa el contrato IUseCase
+ * Responsable de:
+ * - Recuperar una entidad Bank utilizando su identificador numérico.
+ *
+ * Implementa el contrato `IUseCase`.
  */
 @Injectable()
-export class findByIdBankUseCase implements IUseCase<number, Bank> {
+export class FindBankByIdUseCase implements IUseCase<number, Bank> {
     /**
-     * Crea una instancia del caso de uso con el repositorio de bancos inyectado.
+     * Inicializa una instancia del caso de uso con el repositorio de bancos inyectado.
      *
-     * @param {IBankRepository} bankRepository - Repositorio encargado de procesos del lectura y escritura para la interface Banks.
+     * @param bankRepository Repositorio encargado del acceso a datos para entidades Bank.
      */
     constructor(
         @Inject("IBankRepository")
@@ -22,10 +24,10 @@ export class findByIdBankUseCase implements IUseCase<number, Bank> {
     ) {}
 
     /**
-     * Ejecuta la logica de negocio: obtencion de bancos por id.
+     * Ejecuta la lógica de negocio: obtención de un banco a partir de su ID.
      *
-     * @param {number} id id de banco
-     * @returns {Bank}
+     * @param id Identificador único del banco.
+     * @returns La entidad Bank correspondiente al ID proporcionado.
      */
     async execute(id: number): Promise<Bank> {
         return this.bankRepository.findById(id);

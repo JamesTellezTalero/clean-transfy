@@ -4,13 +4,13 @@ import { Transfer } from "../../domain/entities/transfer.entity";
 import { ITransferRepository } from "../../domain/repositories/transfer.respository.interface";
 
 /**
- * Caso de uso para obtener una transferencia por su ID.
+ * Caso de uso para obtener todas las transferencias.
  *
- * Responsable de recuperar una transferencia específica usando su identificador único.
+ * Responsable de recuperar todas las transferencias registradas en el repositorio.
  * Implementa el contrato IUseCase.
  */
 @Injectable()
-export class findByIdTransferUseCase implements IUseCase<number, Transfer> {
+export class findAllTransferUseCase implements IUseCase<null, Transfer[]> {
     /**
      * Crea una instancia del caso de uso con el repositorio de transferencias inyectado.
      *
@@ -22,12 +22,11 @@ export class findByIdTransferUseCase implements IUseCase<number, Transfer> {
     ) {}
 
     /**
-     * Ejecuta la lógica de negocio para recuperar una transferencia por su ID.
+     * Ejecuta la lógica de negocio para recuperar todas las transferencias registradas.
      *
-     * @param {number} id - El identificador único de la transferencia a buscar.
-     * @returns {Promise<Transfer>} - La transferencia correspondiente al ID proporcionado.
+     * @returns {Promise<Transfer[]>} - Un array con todas las transferencias registradas.
      */
-    async execute(id: number): Promise<Transfer> {
-        return this.transferRepository.findById(id);
+    async execute(): Promise<Transfer[]> {
+        return this.transferRepository.findAll();
     }
 }

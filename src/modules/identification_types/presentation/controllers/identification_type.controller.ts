@@ -11,10 +11,9 @@ import { ApiResponseDto } from "src/shared/application/dtos/api-responses/api-re
 import { SuccessResponse } from "src/shared/application/dtos/api-responses/success-response.dto";
 import { IdentificationTypeCreateAPIRequestDto } from "../dtos/identification_type.create-api.dto";
 import { IdentificationTypeUpdateAPIRequestDto } from "../dtos/identification_type.update-api.dto";
-import { createIdentificationTypeUseCase } from "../../application/use-cases/create-identification_types.use-case";
 import { deleteIdentificationTypeUseCase } from "../../application/use-cases/delete-identification_types.use-case";
 import { updateIdentificationTypeUseCase } from "../../application/use-cases/update-identification_types.use-case";
-import { findByAllIdentificationTypeUseCase } from "../../application/use-cases/find-by-all-identification_types.use-case";
+import { findAllIdentificationTypeUseCase } from "../../application/use-cases/find-all-identification_types.use-case";
 import { findByIdIdentificationTypeUseCase } from "../../application/use-cases/find-by-id-identification_types.use-case";
 import { findByNameIdentificationTypeUseCase } from "../../application/use-cases/find-by-name-identification_types.use-case";
 import { IdentificationType } from "../../domain/entities/identification_type.entity";
@@ -31,6 +30,7 @@ import { BadRequestResponse } from "src/shared/application/dtos/api-responses/er
 import { mappedErrors } from "src/shared/application/utils/mapper-errors.utils";
 import { ConflictResponse } from "src/shared/application/dtos/api-responses/errors/conflict-error-response.dto";
 import { NotFoundResponse } from "src/shared/application/dtos/api-responses/errors/not-found-error-response.dto";
+import { CreateIdentificationTypeUseCase } from "../../application/use-cases/create-identification_types.use-case";
 
 @ApiTags("Identification Types")
 @ApiExtraModels(
@@ -45,10 +45,10 @@ import { NotFoundResponse } from "src/shared/application/dtos/api-responses/erro
 @Controller("identification-type")
 export class IdentificationTypeController {
     constructor(
-        private readonly createIdentificationTypeUseCase: createIdentificationTypeUseCase,
+        private readonly createIdentificationTypeUseCase: CreateIdentificationTypeUseCase,
         private readonly deleteIdentificationTypeUseCase: deleteIdentificationTypeUseCase,
         private readonly updateIdentificationTypeUseCase: updateIdentificationTypeUseCase,
-        private readonly findAllIdentificationTypeUseCase: findByAllIdentificationTypeUseCase,
+        private readonly findAllIdentificationTypeUseCase: findAllIdentificationTypeUseCase,
         private readonly findByIdIdentificationTypeUseCase: findByIdIdentificationTypeUseCase,
         private readonly findByNameIdentificationTypeUseCase: findByNameIdentificationTypeUseCase
     ) {}

@@ -11,7 +11,7 @@ import { ApiResponseDto } from "src/shared/application/dtos/api-responses/api-re
 import { SuccessResponse } from "src/shared/application/dtos/api-responses/success-response.dto";
 import { TransferCreateAPIRequestDto } from "../dtos/transfer.create-api.dto";
 import { createTransferUseCase } from "../../application/use-cases/create-transfer.use-case";
-import { findByAllTransferUseCase } from "../../application/use-cases/find-by-all-transfer.use-case";
+import { findAllTransferUseCase } from "../../application/use-cases/find-all-transfer.use-case";
 import { findByIdTransferUseCase } from "../../application/use-cases/find-by-id-transfer.use-case";
 import { findBySourceWalletIdTransferUseCase } from "../../application/use-cases/find-by-source-wallet-id-transfer.use-case";
 import { findByTargetWalletIdTransferUseCase } from "../../application/use-cases/find-by-target-wallet-id-transfer.use-case";
@@ -48,7 +48,7 @@ import { UnauthorizedResponse } from "src/shared/application/dtos/api-responses/
 export class TransferController {
     constructor(
         private readonly createTransferUseCase: createTransferUseCase,
-        private readonly findAllTransferUseCase: findByAllTransferUseCase,
+        private readonly findAllTransferUseCase: findAllTransferUseCase,
         private readonly findByIdTransferUseCase: findByIdTransferUseCase,
         private readonly findBySourceWalletIdTransferUseCase: findBySourceWalletIdTransferUseCase,
         private readonly findByTargetWalletIdTransferUseCase: findByTargetWalletIdTransferUseCase

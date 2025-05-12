@@ -12,7 +12,7 @@ import { ApiResponseDto } from "src/shared/application/dtos/api-responses/api-re
 import { SuccessResponse } from "src/shared/application/dtos/api-responses/success-response.dto";
 import { TopUpCreateAPIRequestDto } from "../dtos/top_up.create-api.dto";
 import { createTopUpUseCase } from "../../application/use-cases/create-top_up.use-case";
-import { findByAllTopUpUseCase } from "../../application/use-cases/find-by-all-top_up.use-case";
+import { findAllTopUpUseCase } from "../../application/use-cases/find-all-top_up.use-case";
 import { findByIdTopUpUseCase } from "../../application/use-cases/find-by-id-top_up.use-case";
 import { findByWalletIdTopUpUseCase } from "../../application/use-cases/find-by-wallet-id-top_up.use-case";
 import { AuthGuard } from "src/modules/auth/infrastructure/guards/auth.guard";
@@ -49,7 +49,7 @@ import { ForbidenResponse } from "src/shared/application/dtos/api-responses/erro
 export class TopUpController {
     constructor(
         private readonly createTopUpUseCase: createTopUpUseCase,
-        private readonly findAllTopUpUseCase: findByAllTopUpUseCase,
+        private readonly findAllTopUpUseCase: findAllTopUpUseCase,
         private readonly findByIdTopUpUseCase: findByIdTopUpUseCase,
         private readonly findByWalletIdTopUpUseCase: findByWalletIdTopUpUseCase
     ) {}

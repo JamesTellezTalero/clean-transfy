@@ -6,20 +6,22 @@ import { Bank } from "../../domain/entities/bank.entity";
 import { ConflictResponse } from "src/shared/application/dtos/api-responses/errors/conflict-error-response.dto";
 
 /**
- * caso de uso destinado a la creacion de bancos
+ * Caso de uso destinado a la creación de bancos.
  *
- * Responsable de la creacion de bancos
- * asi como su validacion de preexistencia para las propiedades name y code
- * Implementa el contrato IUseCase
+ * Responsable de:
+ * - Validar preexistencia de nombre y código.
+ * - Crear un nuevo banco si no hay conflictos.
+ *
+ * Implementa el contrato `IUseCase`.
  */
 @Injectable()
-export class createBankUseCase
+export class CreateBankUseCase
     implements IUseCase<BankCreateDatabaseDto, Bank>
 {
     /**
-     * Crea una instancia del caso de uso con el repositorio de bancos inyectado.
+     * Inicializa una instancia del caso de uso con el repositorio inyectado.
      *
-     * @param {IBankRepository} bankRepository - Repositorio encargado de procesos del lectura y escritura para la interface Banks.
+     * @param bankRepository Repositorio encargado del acceso a datos para entidades Bank.
      */
     constructor(
         @Inject("IBankRepository")
@@ -27,11 +29,11 @@ export class createBankUseCase
     ) {}
 
     /**
-     * Ejecuta la logica de negocio: creacion de bancos y validacion de pre existencias.
+     * Ejecuta la lógica de negocio para la creación de un banco.
      *
-     * @param { BankCreateDatabaseDto} createDto - Contenido necesario para la creacion de bancos.
-     * @returns {Bank} Modelo primitivo de entidad Bank
-     * @throw {ConflictResponse} En caso de preexistencias por namo o code
+     * @param createDto Datos necesarios para la creación del banco.
+     * @returns Entidad `Bank` creada.
+     * @throws {ConflictResponse} Si el nombre o código del banco ya existen.
      */
     async execute(createDto: BankCreateDatabaseDto): Promise<Bank> {
         const preExistBankName = await this.bankRepository.findByName(
@@ -40,10 +42,12 @@ export class createBankUseCase
         const preExistBankCode = await this.bankRepository.findByCode(
             createDto.code
         );
+
         if (preExistBankName)
-            throw new ConflictResponse("Sent Bank name already exist");
-        else if (preExistBankCode)
-            throw new ConflictResponse("Sent Bank code already exist");
-        else return this.bankRepository.create(createDto);
+            throw new ConflictResponse("Sent Bank name already exists");
+        if (preExistBankCode)
+            throw new ConflictResponse("Sent Bank code already exists");
+
+        return this.bankRepository.create(createDto);
     }
 }

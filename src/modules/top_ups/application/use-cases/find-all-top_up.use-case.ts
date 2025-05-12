@@ -4,13 +4,13 @@ import { ITopUpRepository } from "../../domain/repositories/top_up.respository.i
 import { TopUp } from "../../domain/entities/top_up.entity";
 
 /**
- * Caso de uso destinado a obtener todas las recargas (top-ups) asociadas a una billetera específica.
+ * Caso de uso destinado a obtener todas las recargas (top-ups) existentes.
  *
- * Responsable de consultar las recargas realizadas para una billetera particular usando su ID.
+ * Responsable de la consulta de todas las recargas almacenadas en el repositorio.
  * Implementa el contrato IUseCase.
  */
 @Injectable()
-export class findByWalletIdTopUpUseCase implements IUseCase<number, TopUp[]> {
+export class findAllTopUpUseCase implements IUseCase<null, TopUp[]> {
     /**
      * Crea una instancia del caso de uso con el repositorio de recargas inyectado.
      *
@@ -22,12 +22,11 @@ export class findByWalletIdTopUpUseCase implements IUseCase<number, TopUp[]> {
     ) {}
 
     /**
-     * Ejecuta la lógica de negocio para obtener las recargas asociadas a una billetera por su ID.
+     * Ejecuta la lógica de negocio para obtener todas las recargas (top-ups).
      *
-     * @param {number} wallet_id - El ID de la billetera cuya lista de recargas se va a consultar.
-     * @returns {Promise<TopUp[]>} - Lista de recargas asociadas a la billetera especificada.
+     * @returns {Promise<TopUp[]>} - Una lista de todas las recargas almacenadas.
      */
-    async execute(wallet_id: number): Promise<TopUp[]> {
-        return this.topUpRepository.findByWalletId(wallet_id);
+    async execute(): Promise<TopUp[]> {
+        return this.topUpRepository.findAll();
     }
 }

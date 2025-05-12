@@ -5,7 +5,7 @@ import { WalletModule } from "../wallets/wallet.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { TopUpORMEntity } from "./infrastructure/orm/top_up.orm-entity";
 import { createTopUpUseCase } from "./application/use-cases/create-top_up.use-case";
-import { findByAllTopUpUseCase } from "./application/use-cases/find-by-all-top_up.use-case";
+import { findAllTopUpUseCase } from "./application/use-cases/find-all-top_up.use-case";
 import { findByIdTopUpUseCase } from "./application/use-cases/find-by-id-top_up.use-case";
 import { findByWalletIdTopUpUseCase } from "./application/use-cases/find-by-wallet-id-top_up.use-case";
 import { UserModule } from "../users/user.module";
@@ -23,7 +23,7 @@ import { UserModule } from "../users/user.module";
             useClass: TopUpRepositoryService
         },
         createTopUpUseCase,
-        findByAllTopUpUseCase,
+        findAllTopUpUseCase,
         findByIdTopUpUseCase,
         findByWalletIdTopUpUseCase
     ]
